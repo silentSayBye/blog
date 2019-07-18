@@ -7,18 +7,18 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class BadRequestException extends RuntimeException{
+public class CustomException extends RuntimeException{
     private String message;
     private Throwable cause;
 
-    public BadRequestException(){
+    public CustomException(){
         super();
     }
-    public BadRequestException(String message,Throwable cause){
+    public CustomException(String message,Throwable cause){
         this.message = message;
         this.cause = cause;
     }
-    public BadRequestException(String message){
+    public CustomException(String message){
         this.message = message;
     }
 }

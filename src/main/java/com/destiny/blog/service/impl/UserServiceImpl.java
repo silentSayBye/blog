@@ -7,14 +7,15 @@ import com.destiny.blog.domain.dto.UserDto;
 import com.destiny.blog.domain.pojo.Resource;
 import com.destiny.blog.domain.pojo.Role;
 import com.destiny.blog.domain.pojo.User;
-import com.destiny.blog.exception.BadRequestException;
+import com.destiny.blog.exception.CustomException;
 import com.destiny.blog.service.UserService;
-import com.destiny.blog.util.StringUtil;
 import com.google.common.collect.Sets;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
@@ -36,6 +38,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private ResourceRepository resourceRepository;
 
+    @Autowired
+    @SuppressWarnings("all")
+    private AuthenticationManager authenticationManager;
 
     /**
      * @Author Administrator
@@ -167,5 +172,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Set<Resource> resources = findResourceByUsername(user.getUsername());
         userDto.setResources(resources);
         return userDto;
+    }
+
+
+    //通过邮箱注册
+    public UserDto register(String email,String password){
+        User userInfo = new User();
+        if (StringUtils.isAllBlank(email,password)){
+            log.info("邮箱 或者 密码 不能为空，当前 邮箱 为 {},密码为{}",email,password);
+            throw new CustomException(String.format("邮箱 或者 密码 不能为空",email,password));
+        }
+
+        //todo 添加验证码验证
+        User  user = userRepository.findByEmailAndState(email, 1);
+        if (user != null){
+
+        }
+        return  null;
     }
 }

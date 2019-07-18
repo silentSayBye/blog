@@ -25,20 +25,20 @@ public class UserController {
     @PostMapping(path = "/")
     public JwtVo login(String username, String email, String password) throws Exception{
         JwtVo jwtVo = new JwtVo();
-        if (StringUtils.isNotBlank(password)){
-            if (StringUtils.isNotBlank(username) || StringUtils.isNotBlank(email)){
-                User userInfo = userRepository.findUserInfo(username, email, 1);
-                // todo  password解密 判断
-                String jwt = JwtUtil.createJwt(UUID.randomUUID().toString(), userInfo.getEmail(), userInfo.getUsername(), 3600L);
-                jwtVo.setCode(HttpStatus.OK);
-                jwtVo.setToken(jwt);
-                jwtVo.setMessage("success");
-                jwtVo.setData(userInfo);
-            }
-        }else{
-            jwtVo.setCode(HttpStatus.BAD_REQUEST);
-            jwtVo.setMessage("password can not be empty");
-        }
+//        if (StringUtils.isNotBlank(password)){
+//            if (StringUtils.isNotBlank(username) || StringUtils.isNotBlank(email)){
+//                User userInfo = userRepository.findUserInfo(username, email, 1);
+//                // todo  password解密 判断
+//                String jwt = JwtUtil.createJwt(UUID.randomUUID().toString(), userInfo.getEmail(), userInfo.getUsername(), 3600L);
+//                jwtVo.setCode(HttpStatus.OK);
+//                jwtVo.setToken(jwt);
+//                jwtVo.setMessage("success");
+//                jwtVo.setData(userInfo);
+//            }
+//        }else{
+//            jwtVo.setCode(HttpStatus.BAD_REQUEST);
+//            jwtVo.setMessage("password can not be empty");
+//        }
        return jwtVo;
     }
 }

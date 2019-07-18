@@ -24,6 +24,7 @@ import java.util.Set;
 @Setter
 public class UserDto implements UserDetails {
 
+    private Integer id;
     private String username;
     private String email;
     private String password;

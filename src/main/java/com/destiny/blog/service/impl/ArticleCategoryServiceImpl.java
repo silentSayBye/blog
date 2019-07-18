@@ -2,7 +2,7 @@ package com.destiny.blog.service.impl;
 
 import com.destiny.blog.dao.ArticleCategoryRepository;
 import com.destiny.blog.domain.pojo.ArticleCategory;
-import com.destiny.blog.exception.BadRequestException;
+import com.destiny.blog.exception.CustomException;
 import com.destiny.blog.service.ArticleCategoryService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -36,7 +36,7 @@ public class ArticleCategoryServiceImpl implements ArticleCategoryService {
     public ArticleCategory findArticleCategoryByName(String category) {
         logger.info("category:{}",category);
         if(StringUtils.isBlank(category)){
-           throw new BadRequestException("category 不能为空");
+           throw new CustomException("category 不能为空");
         }
         ArticleCategory articleCategory = articleCategoryRepository.findArticleCategoryByName(category);
         return  articleCategory;
