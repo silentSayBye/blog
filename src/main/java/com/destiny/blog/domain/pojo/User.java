@@ -15,11 +15,7 @@ import java.util.List;
 @Setter
 @Entity
 //@Proxy(lazy = false)
-public class User extends BaseEntity implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class User extends BaseEntity<Integer> implements Serializable {
 
     @Column(name = "user_name")
     private String username;

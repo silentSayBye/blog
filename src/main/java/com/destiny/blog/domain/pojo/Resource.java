@@ -18,11 +18,8 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "d_resource")
-public class Resource extends BaseEntity implements Serializable  {
+public class Resource extends BaseEntity<Integer> implements Serializable  {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
     @Column(name = "resource_name")
     private String resourceName;

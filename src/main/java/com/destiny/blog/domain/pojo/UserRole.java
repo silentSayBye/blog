@@ -13,11 +13,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @ToString
-public class UserRole extends BaseEntity implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class UserRole extends BaseEntity<Integer> implements Serializable {
 
     @Column(name = "user_id")
     private Integer userId;

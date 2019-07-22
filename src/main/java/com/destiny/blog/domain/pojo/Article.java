@@ -3,14 +3,12 @@ package com.destiny.blog.domain.pojo;
 import com.destiny.blog.domain.base.BaseEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "d_article")
-public class Article extends BaseEntity {
+public class Article extends BaseEntity<Integer> implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
     @Column(name = "title")
     private String title;

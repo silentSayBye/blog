@@ -16,7 +16,11 @@ import java.util.Date;
 @Getter
 @Setter
 //@EntityListeners(AuditingEntityListener.class)
-public abstract class BaseEntity  {
+public abstract class BaseEntity<PK>  {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private PK id;
 
     @CreatedBy
     @Column(name = "creator")

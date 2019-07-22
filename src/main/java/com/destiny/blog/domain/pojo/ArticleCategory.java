@@ -13,11 +13,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ArticleCategory extends BaseEntity implements Serializable{
+public class ArticleCategory extends BaseEntity<Integer> implements Serializable{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
     @Column(name = "category")
     private String category;

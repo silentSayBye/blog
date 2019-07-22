@@ -12,11 +12,7 @@ import java.util.List;
 @Table(name = "d_role")
 @Setter
 @Getter
-public class Role extends BaseEntity implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Role extends BaseEntity<Integer> implements Serializable {
 
     @Column(name = "role_name")
     private String roleName;
