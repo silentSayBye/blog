@@ -1,15 +1,9 @@
 package com.destiny.blog.controller;
 
 import com.destiny.blog.dao.UserRepository;
-import com.destiny.blog.domain.dto.JwtVo;
-import com.destiny.blog.domain.pojo.User;
-import com.destiny.blog.util.JwtUtil;
-import org.apache.commons.lang3.StringUtils;
+import com.destiny.blog.domain.vo.JwtVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.UUID;
 
 /**
  * @ClassName UserController

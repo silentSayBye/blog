@@ -1,5 +1,6 @@
 package com.destiny.blog.domain.pojo;
 
+import com.destiny.blog.domain.base.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;

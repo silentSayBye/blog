@@ -1,9 +1,8 @@
 package com.destiny.blog.domain.pojo;
 
+import com.destiny.blog.domain.base.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.io.Serializable;

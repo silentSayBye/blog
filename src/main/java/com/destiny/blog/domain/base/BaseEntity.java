@@ -1,4 +1,4 @@
-package com.destiny.blog.domain.pojo;
+package com.destiny.blog.domain.base;
 
 import lombok.Getter;
 import lombok.Setter;

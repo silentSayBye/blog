@@ -1,4 +1,4 @@
-package com.destiny.blog.domain.dto;
+package com.destiny.blog.domain.vo;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,5 +1,6 @@
 package com.destiny.blog.domain.pojo;
 
+import com.destiny.blog.domain.base.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,7 +13,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @ToString
-public class UserRole extends  BaseEntity implements Serializable {
+public class UserRole extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

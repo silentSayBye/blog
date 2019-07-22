@@ -1,17 +1,22 @@
 package com.destiny.blog.domain.vo;
 
-public class Response<T> {
+import com.destiny.blog.domain.base.Result;
+import lombok.Data;
+import lombok.ToString;
 
+import java.io.Serializable;
+
+@Data
+public class Response<T> implements Serializable, Result {
    private String code;
    private String message;
    private T data;
 
-   private Response(Bulider<T> bulider){
-       this.code = bulider.code;
-       this.message = bulider.message;
-       this.data =  bulider.data;
+
+   public static <T> Bulider<T> bulider(){
+       return new Bulider<T>();
    }
-    public static final class Bulider<T>{
+   public static class Bulider<T>{
 
         private String code;
         private String message;
@@ -27,14 +32,17 @@ public class Response<T> {
             this.message = message;
             return this;
         }
-        public Bulider<T> ata(T data){
+        public Bulider<T> data(T data){
             this.data = data;
             return this;
         }
 
-        public Response<T> bulider(){
-            return new Response<>(this);
+        public  Response<T> bulid(){
+            Response<T> response = new Response<>();
+            response.setMessage(this.message);
+            response.setCode(this.code);
+            response.setData(this.data);
+            return response;
         }
     }
-
 }

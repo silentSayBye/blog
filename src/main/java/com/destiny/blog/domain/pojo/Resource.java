@@ -1,14 +1,13 @@
 package com.destiny.blog.domain.pojo;
 
+import com.destiny.blog.domain.base.BaseEntity;
 import com.destiny.blog.domain.enums.HttpMethodEnum;
 import com.destiny.blog.domain.enums.ResourceType;
-import com.destiny.blog.util.BaseEnum;
 import com.destiny.blog.util.enumconverter.HttpMethodConverter;
 import com.destiny.blog.util.enumconverter.ResourceTypeConverter;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
