@@ -2,9 +2,7 @@ package com.destiny.blog.domain.pojo;
 
 import com.destiny.blog.domain.base.BaseEntity;
 import com.google.common.collect.Lists;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +12,10 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 //@Proxy(lazy = false)
 public class User extends BaseEntity<Integer> implements Serializable {
 

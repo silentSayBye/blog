@@ -15,47 +15,26 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer>, UserCustom {
-   /**
-    * @Author Administrator
-    * @Description
-    * @Date 20:54 2019/6/15
-    * @Param [id]
-    * @Return com.destiny.blog.domain.pojo.User
-    **/
+
     @Query("select u from User u where u.id = :id and u.state = :flag")
     User  findUserById(@Param("id")Integer id, @Param("flag")Integer flag);
 
-    /**
-     * @Author Administrator
-     * @Description
-     * @Date 14:21 2019/6/16
-     * @Param []
-     * @Return java.util.List<com.destiny.blog.domain.pojo.User>
-     **/
-//    @Query("select u from User u where u.state = :flag")
+
     List<User> findAllByState(@Param("flag") Integer flag);
 
-    /**
-     * @Author Administrator
-     * @Description 查询所有User
-     * @Date 23:04 2019/6/17
-     * @Param [pageable]
-     * @Return org.springframework.data.domain.Page<com.destiny.blog.domain.pojo.User>
-     **/
+
     Page<User> findAll(Pageable pageable);
 
-    /**
-     * @Author Administrator
-     * @Description
-     * @Date 14:21 2019/6/16
-     * @Param []
-     * @Return java.lang.Boolean
-     **/
+
     @Modifying
     @Transactional
     @Query("update User u set u.state = 0 where u.id = :id")
     Boolean deleteUser(@Param("id")Integer id);
 
     User findByEmailAndState(@Param("email") String email,@Param("state") Integer flag);
+
+    User findByUsernameAndState(@Param("username") String username,@Param("state") Integer flag);
+
+    User findByUsername(@Param("username") String username);
 
 }

@@ -1,5 +1,6 @@
 package com.destiny.blog.util;
 
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.Matcher;
@@ -41,8 +42,4 @@ public class StringUtil {
         return false;
     }
 
-    public static void main(String[] args) {
-        System.out.println(StringUtil.isEmail("31231@oo.com"));
-        System.out.println(StringUtil.isPhone("18551581429"));
-    }
 }

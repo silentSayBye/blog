@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.InterfaceAddress;
 import java.util.List;
 
 /**
@@ -25,8 +26,6 @@ public interface RoleRepository extends JpaRepository<Role,Integer>, RoleCustom 
 
     List<Role> findAllByDeleteFlag(@Param("deleteFlag") Integer flag);
 
-    Role findByCodeAndDeleteFlag(@Param("code") String code,@Param("deleteFlag") String flag);
-
     Page<Role> findAll(Pageable pageable);
 
     /**
@@ -40,5 +39,7 @@ public interface RoleRepository extends JpaRepository<Role,Integer>, RoleCustom 
     @Transactional
     @Query("update Role r set r.deleteFlag = 0 where r.id = :id")
     Boolean delRole(@Param("id")Integer id);
+
+    Role findByCodeAndDeleteFlag(@Param("code")String code, @Param("deleteFlag")Integer deleteFlag);
 
 }

@@ -12,3 +12,5 @@ jwt:
   header: "auth-token"
   secure: ZAQ!xsw2
   expire: 300000
+server:
+  port: 8080

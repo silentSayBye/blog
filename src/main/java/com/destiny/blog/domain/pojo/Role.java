@@ -1,8 +1,7 @@
 package com.destiny.blog.domain.pojo;
 
 import com.destiny.blog.domain.base.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +11,9 @@ import java.util.List;
 @Table(name = "d_role")
 @Setter
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role extends BaseEntity<Integer> implements Serializable {
 
     @Column(name = "role_name")

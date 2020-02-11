@@ -7,7 +7,7 @@ spring:
 
   redis:
     database: 0
-    password:
+    password: lts950410
     host: 127.0.0.1
     port: 6379
     timeout: 5000
@@ -30,3 +30,27 @@ spring:
     username: guest
     password: '!QAZ2wsx'
     port: 5672
+
+secure:
+  ignore:
+    urls: #安全路径白名单
+      - /swagger-ui.html
+      - /swagger-resources/**
+      - /swagger/**
+      - /**/v2/api-docs
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /webjars/springfox-swagger-ui/**
+      - /actuator/**
+      - /druid/**
+      - /admin/login
+      - /admin/register
+      - /register
+      - /login
+
+role:
+  name: regular
+  code: regular
+  description: 普通用户

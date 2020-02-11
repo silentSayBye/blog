@@ -8,11 +8,11 @@ package com.destiny.blog.domain.enums;
  **/
 public enum  ResponseCode {
 
-    C200("200","Success"),
-    C403("403","Forbidden"),
-    C500("500","Internal Server Error"),
-    C400("400","请求参数错误"),
-    C402("-420","用户未登录"),
+    SUCCUSS("200","Success"),
+    FORBIDDEN("403","Forbidden"),
+    FAILED("500","Internal Server Error"),
+    VALIDATE_FAILED("400","请求参数错误"),
+    UNAUTHORIZED("401","暂未登录或token已经过期"),
     OPERATOION_FREQUENCY_TOO_FAST("1000","操作过快,请稍后再试!");
 
     private  String code;

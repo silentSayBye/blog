@@ -10,10 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -24,11 +27,10 @@ import java.util.stream.Stream;
  * @Version 1.0
  **/
 @Slf4j
+@Component
 public class JwtUtil {
 
-    private static final String CLAIM_KEY_AUTHORITIES = "socpe";
-    private static final String CLAIM_KRY_USER_ID = "userId";
-    private static final String ROLE_REFRESH_TOKEN ="ROLE_REFRESH_TOKEN";
+    private static final String CLAIM_KEY_USER = "username";
 
     private Map<String,Object> tokenMap = new ConcurrentHashMap<>(20);
 
@@ -41,47 +43,52 @@ public class JwtUtil {
     @Value("${jwt.expire}")
     private Long refreshExpiration;
 
-    private final  SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+    private final  SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS512;
 
 
-    public String generalAccessToken(UserDto userDto){
+    /**
+     * @Author Administrator
+     * 生成token
+     **//**
+     * @Author Administrator
+     * 生成token
+     **/
+    public String generalAccessToken(UserDetails userDto){
         Map<String, Object> claims = setClaims(userDto);
-        claims.put(CLAIM_KEY_AUTHORITIES,authoritiesToArray(userDto.getAuthorities()).get(0));
-        return  generateAccessToken(userDto.getUsername(),claims);
+//        claims.put(CLAIM_KEY_AUTHORITIES,authoritiesToArray(userDto.getAuthorities()).get(0));
+        return  generateToken(claims);
     }
 
-    public Boolean canTokenBeRefresh(String token){
-        Date createdDate = getCreatedDateFromToken(token);
-        return (!isTokenExpiration(token));
-    }
-
+    /**
+     * @Author Administrator
+     * 刷新token
+     **/
     public String refreshToken(String token){
         Claims claims = parseToken(token);
-        return generalRefreshToken(claims.getSubject(),claims);
+        return generateToken(claims);
     }
+
+    /**
+     * @Description token是否可刷新
+     **/
+    public Boolean canRefreshToken(String token){
+        Date expiration = getExpirationFromToken(token);
+        return expiration.before(new Date());
+    }
+
+    /**
+     * @Description 验证token
+     **/
     public Boolean validToken(UserDto userDto,String token){
-        Integer userId = getUserIdFromToken(token);
         String username = getUsernameFromToken(token);
         return (username.equals(userDto.getUsername())
-                && userId.equals(userDto.getUsername())
-                && ! isTokenExpiration(token));
+                && isTokenExpiration(token));
     }
 
-    public Integer getUserIdFromToken(String token){
+
+    private String getUsernameFromToken(String token){
         Claims claims = parseToken(token);
-        return  (Integer) claims.get(CLAIM_KRY_USER_ID);
-    }
-
-    public String getUsernameFromToken(String token){
-        Claims claims = parseToken(token);
-        return claims.getSubject();
-    }
-
-    public String generateRefreshToken(UserDto userDto){
-        Map<String, Object> claims = setClaims(userDto);
-        String[] roles = {ROLE_REFRESH_TOKEN};
-        claims.put(CLAIM_KEY_AUTHORITIES, JSON.toJSON(roles));
-        return generalRefreshToken(userDto.getUsername(),claims);
+        return (String)claims.get("CLAIM_KEY_USER");
     }
 
     public void deleteTokn(String username){
@@ -127,7 +134,7 @@ public class JwtUtil {
         return date;
     }
 
-    private Date getCreatedDateFromToken(String token){
+   private Date getCreatedDateFromToken(String token){
         Claims claims = parseToken(token);
         Date date = null;
         if (claims != null){
@@ -142,37 +149,17 @@ public class JwtUtil {
     }
 
 
-    private Map<String,Object> setClaims(UserDto userDto){
+    private Map<String,Object> setClaims(UserDetails userDto){
         Map claims = Maps.newHashMap();
-        claims.put(CLAIM_KRY_USER_ID,userDto.getId());
+        claims.put(CLAIM_KEY_USER,userDto.getUsername());
         return claims;
     }
 
-    private List authoritiesToArray(Collection<? extends GrantedAuthority> authorities){
-        List list = java.util.Collections.EMPTY_LIST;
-        if (Collections.isEmpty(authorities)){
-            return list;
-        }
-        list = Lists.newArrayList();
-        for (GrantedAuthority authority : authorities){
-            list.add(authority.getAuthority());
-        }
-        return list;
-    }
-    private String generateAccessToken(String subject, Map<String, Object> claims) {
-        return generateToken(subject, claims, expiration);
-    }
-
-    private String generalRefreshToken(String subject,Map<String,Object> claims){
-        return generateToken(subject,claims,refreshExpiration);
-    }
-
-    private  String generateToken(String subject, Map<String,Object> claims, Long expiration){
+    private  String generateToken(Map<String,Object> claims){
       return Jwts.builder().setId(UUID.randomUUID().toString())
               .setIssuedAt(new Date())
               .setExpiration(generateExpirationDate())
               .setClaims(claims)
-              .setSubject(subject)
               .signWith(signatureAlgorithm,secure)
               .compact();
     }
@@ -180,12 +167,16 @@ public class JwtUtil {
         return new Date(System.currentTimeMillis()+ expiration * 1000);
     }
 
-    public static void main(String[] args) {
-        Map map = Maps.newHashMap();
-        map.put("aa",11);
-        map.put("aa",12);
-        map.forEach((a,b) -> {
-            System.out.println(a +"111"+ b);
-        });
+    private List authoritiesToArray(Collection<? extends GrantedAuthority> authorities){
+        return authorities.stream().map(authority -> authority.getAuthority())
+                .collect(Collectors.toList());
     }
+
+//    public static void main(String[] args) {
+//       Date now = new Date();
+//
+//        long after = now.getTime() + 1000;
+//        System.out.println(now.before(new Date(after)));
+//
+//    }
 }

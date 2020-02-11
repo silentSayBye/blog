@@ -1,5 +1,6 @@
 package com.destiny.blog.service;
 
+import com.destiny.blog.domain.dto.UserDto;
 import com.destiny.blog.domain.pojo.Resource;
 import com.destiny.blog.domain.pojo.Role;
 import com.destiny.blog.domain.pojo.User;
@@ -14,7 +15,7 @@ import java.util.Set;
 
 public interface UserService {
 
-     Page<User> findAllUser(Pageable pageable);
+    Page<User> findAllUser(Pageable pageable);
 
     User findUserById(Integer id, @Null Integer flag);
 
@@ -29,4 +30,10 @@ public interface UserService {
     List<Role> findRoleByUsername(String username);
 
     Set<Resource> findResourceByUsername(String username);
+
+    User findByUsername(String username);
+
+    UserDto register(String username, String password);
+
+    String login (String username, String password);
 }

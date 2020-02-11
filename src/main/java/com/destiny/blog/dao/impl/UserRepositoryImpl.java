@@ -26,9 +26,6 @@ public class UserRepositoryImpl extends BaseHibernate<User> implements UserCusto
         Map<String,Object> conditions = Maps.newHashMap();
         StringBuffer sql = new StringBuffer();
         sql = sql.append("select * from d_user where 1 = 1");
-//        if(StringUtils.isAllBlank(name,email)){
-//            throw new CommomException("name or email 不能都为空");
-//        }
         if(StringUtils.isNotBlank(name)){
             conditions.put("name",name);
             sql.append(" and user_name = :name");

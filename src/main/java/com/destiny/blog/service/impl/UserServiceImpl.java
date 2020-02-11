@@ -8,26 +8,35 @@ import com.destiny.blog.domain.pojo.Resource;
 import com.destiny.blog.domain.pojo.Role;
 import com.destiny.blog.domain.pojo.User;
 import com.destiny.blog.exception.CustomException;
+import com.destiny.blog.service.RoleService;
 import com.destiny.blog.service.UserService;
+import com.destiny.blog.util.JwtUtil;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.Null;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 @Service
 @Slf4j
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -36,11 +45,33 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private RoleRepository roleRepository;
 
     @Autowired
+    private RoleService roleService;
+
+    @Autowired
     private ResourceRepository resourceRepository;
 
     @Autowired
     @SuppressWarnings("all")
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    // 赋予注册用户初始权限
+    @Value("${role.code}")
+    private String roleCode;
+
+    @Value("${role.name}")
+    private String roleName;
+
+    @Value("${role.description}")
+    private String description;
 
     /**
      * @Author Administrator
@@ -141,7 +172,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
      * @Description 根据用户名查询用户资源
      * @Date 23:42 2019/6/18
      * @Param [username]
-     * @Return java.util.Set<com.destiny.blog.domain.pojo.Resource>
      **/
     @Override
     public Set<Resource> findResourceByUsername(String username){
@@ -154,40 +184,47 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return resources;
     }
 
-
     @Override
-    public UserDetails loadUserByUsername(String nameOrEmail) throws UsernameNotFoundException{
-        User userInfo = null;
-        UserDto userDto= null;
-        if (StringUtils.isBlank(nameOrEmail)){
-            return null;
-        }
-       User user = userRepository.findUserInfoByUsernameOrEmail(nameOrEmail,1);
-        if (user == null){
-            throw new UsernameNotFoundException(String.format("No UserDetail Found With Name Or Email '%s'.",nameOrEmail));
-        }
-        userDto.setUsername(user.getUsername());
-        userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
-        Set<Resource> resources = findResourceByUsername(user.getUsername());
-        userDto.setResources(resources);
-        return userDto;
+    public User findByUsername(String username) {
+        return userRepository.findUserInfo(username,null,1);
     }
 
-
-    //通过邮箱注册
-    public UserDto register(String email,String password){
-        User userInfo = new User();
-        if (StringUtils.isAllBlank(email,password)){
-            log.info("邮箱 或者 密码 不能为空，当前 邮箱 为 {},密码为{}",email,password);
-            throw new CustomException(String.format("邮箱 或者 密码 不能为空",email,password));
+    //通过用户名注册
+    public UserDto register(String username,String password){
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)){
+            log.info("用户名 或者 密码 不能为空，当前用户名 为 {},密码为{}",username,password);
+            throw new CustomException(String.format("用户名 或者 密码 不能为空，当前用户名 为 {},密码为{}",username,password));
         }
 
         //todo 添加验证码验证
-        User  user = userRepository.findByEmailAndState(email, 1);
+        User  user = userRepository.findByUsername(username);
         if (user != null){
-
+            return null;
         }
-        return  null;
+
+        User registerUser = User.builder().username(username).password(passwordEncoder.encode(password)).build();
+        Role role = roleRepository.findByCodeAndDeleteFlag(roleCode, 1);
+        if (role == null){
+            role = roleService.insertRole(roleName, roleCode, description);
+        }
+        registerUser.setRoles(Arrays.asList(role));
+        registerUser.setState(1);
+        user = userRepository.save(registerUser);
+        UserDto userDto = new UserDto();
+        userDto.setUser(user);
+        return  userDto;
+    }
+
+    @Override
+    public String login(String username, String password) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        if (!passwordEncoder.matches(password, userDetails.getPassword())){
+            throw new BadCredentialsException("密码不正确");
+        }
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(userDetails.getUsername(),userDetails.getPassword(),userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        String token = jwtUtil.generalAccessToken(userDetails);
+        return token;
     }
 }

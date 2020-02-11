@@ -47,15 +47,9 @@ public class ResponseResultHandler implements ResponseBodyAdvice {
                         .data(defaultErrorResult.getErrors())
                         .bulid();
             }else if (body instanceof String){
-                return JsonUtil.objectToJson(Response.bulider().code(ResponseCode.C200.getCode())
-                        .message(ResponseCode.C200.getMessage())
-                        .data(body)
-                        .bulid());
+                return JsonUtil.objectToJson(Response.success(body));
             }
-            return Response.bulider().code(ResponseCode.C200.getCode())
-                    .message(ResponseCode.C200.getMessage())
-                    .data(body)
-                    .bulid();
+            return JsonUtil.objectToJson(Response.success(body));
         }
        return body;
     }

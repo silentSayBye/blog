@@ -9,13 +9,12 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
-@MappedSuperclass
 @Getter
 @Setter
-//@EntityListeners(AuditingEntityListener.class)
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity<PK>  {
 
     @Id
@@ -27,7 +26,7 @@ public abstract class BaseEntity<PK>  {
     private String creator;
 
     @CreatedDate
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
     private Date createTime;
 
@@ -36,7 +35,7 @@ public abstract class BaseEntity<PK>  {
     private String updater;
 
     @LastModifiedDate
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "update_date")
     private Date updateTime;
 }
