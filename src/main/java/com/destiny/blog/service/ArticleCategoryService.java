@@ -1,12 +1,13 @@
 package com.destiny.blog.service;
 
 import com.destiny.blog.domain.pojo.ArticleCategory;
+import com.destiny.blog.domain.vo.ArticleCategoryVO;
 
 import java.util.List;
 
 public interface ArticleCategoryService {
 
-    List<ArticleCategory> findAllArticleCategory();
+    List<ArticleCategory> findAllArticleCategoryByTypeAndStatus(Integer type, Integer status);
 
-    ArticleCategory findArticleCategoryByName(String category);
+    ArticleCategory saveArticleCategory(ArticleCategoryVO articleCategoryVo);
 }

@@ -2,8 +2,14 @@ package com.destiny.blog.util;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
+import org.springframework.format.datetime.DateFormatter;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -22,6 +28,18 @@ public class DateUtils {
 
     public static  final String TIME = "HH:mm:ss";
 
+    public static String currentDateTime(){
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATETIME));
+    }
+
+    public static String currentDate(){
+        return LocalDate.now().format(DateTimeFormatter.ofPattern(DATE));
+    }
+
+    public static String currentTime(){
+        return LocalTime.now().format(DateTimeFormatter.ofPattern(TIME));
+    }
+
     public static FastDateFormat fds = FastDateFormat.getInstance(DATETIME, Locale.CHINA);
 
     public static String format(Date date){
@@ -32,7 +50,8 @@ public class DateUtils {
         return fds.format(millis);
     }
 
-   public static String format(Calendar calendar){
+    public static String format(Calendar calendar){
         return fds.format(calendar);
    }
+
 }

@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -193,7 +194,7 @@ public class UserServiceImpl implements UserService {
     public UserDto register(String username,String password){
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)){
             log.info("用户名 或者 密码 不能为空，当前用户名 为 {},密码为{}",username,password);
-            throw new CustomException(String.format("用户名 或者 密码 不能为空，当前用户名 为 {},密码为{}",username,password));
+            throw new CustomException(String.format("用户名 或者 密码 不能为空，当前用户名为%s,密码为%s",username,password), HttpStatus.BAD_REQUEST);
         }
 
         //todo 添加验证码验证
@@ -221,9 +222,9 @@ public class UserServiceImpl implements UserService {
         if (!passwordEncoder.matches(password, userDetails.getPassword())){
             throw new BadCredentialsException("密码不正确");
         }
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(userDetails.getUsername(),userDetails.getPassword(),userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+//        UsernamePasswordAuthenticationToken authenticationToken =
+//                new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+//        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         String token = jwtUtil.generalAccessToken(userDetails);
         return token;
     }

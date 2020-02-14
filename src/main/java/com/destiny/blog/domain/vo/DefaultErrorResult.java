@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @ClassName DefaultErrorResult
@@ -18,39 +17,39 @@ import java.util.Date;
 @NoArgsConstructor
 public class DefaultErrorResult implements Result, Serializable {
 
-    private Integer status;
-    private String error;
+//    private Integer status;
+//    private String error;
     private String message;
     private Integer code;
     private String path;
     private String exception;
-    private Object errors;
-    private Date timestamp;
+//    private Object errors;
+    private String timestamp;
 
     public static Builder builder(){
         return new Builder();
     }
     public static class Builder{
-        private Integer status;
-        private String error;
+//        private Integer status;
+//        private String error;
         private String message;
         private Integer code;
         private String path;
         private String exception;
-        private Object errors;
-        private Date timestamp;
+//        private Object errors;
+        private String timestamp;
 
         public Builder(){}
 
-        public Builder status(Integer status){
-            this.status = status;
-            return this;
-        }
-
-        public Builder error(String error){
-            this.error = error;
-            return this;
-        }
+//        public Builder status(Integer status){
+//            this.status = status;
+//            return this;
+//        }
+//
+//        public Builder error(String error){
+//            this.error = error;
+//            return this;
+//        }
         public Builder message(String message){
             this.message = message;
             return this;
@@ -71,12 +70,12 @@ public class DefaultErrorResult implements Result, Serializable {
             return this;
         }
 
-        public Builder errors(Object errors){
-            this.errors = errors;
-            return this;
-        }
+//        public Builder errors(Object errors){
+//            this.errors = errors;
+//            return this;
+//        }
 
-        public Builder timestamp(Date timestamp){
+        public Builder timestamp(String timestamp){
             this.timestamp = timestamp;
             return this;
         }
@@ -85,12 +84,12 @@ public class DefaultErrorResult implements Result, Serializable {
             DefaultErrorResult defaultErrorResult = new DefaultErrorResult();
             defaultErrorResult.setCode(this.code);
             defaultErrorResult.setMessage(this.message);
-            defaultErrorResult.setError(this.error);
-            defaultErrorResult.setErrors(this.errors);
+//            defaultErrorResult.setError(this.error);
+//            defaultErrorResult.setErrors(this.errors);
             defaultErrorResult.setException(this.exception);
             defaultErrorResult.setPath(this.path);
             defaultErrorResult.setTimestamp(this.timestamp);
-            defaultErrorResult.setStatus(this.status);
+//            defaultErrorResult.setStatus(this.status);
            return defaultErrorResult;
         }
     }

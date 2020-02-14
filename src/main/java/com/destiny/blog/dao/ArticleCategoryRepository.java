@@ -9,13 +9,11 @@ import java.util.List;
 
 public interface ArticleCategoryRepository extends JpaRepository<ArticleCategory,Integer> {
     /**
-     * 查询
+     * 根据类型type和状态status查询
      *
      * @return
      */
-    @Query("from ArticleCategory a  where a.deleteFlag = '0'")
-    List<ArticleCategory> findAllArticleCategory();
+    @Query("from ArticleCategory a  where a.status = :status and a.type = :type")
+    List<ArticleCategory> findByTypeAndStatus(@Param("status") Integer status, @Param("type") Integer type);
 
-    @Query("from ArticleCategory a  where a.deleteFlag = '0' and a.category = :category")
-    ArticleCategory findArticleCategoryByName(@Param("category") String category);
 }

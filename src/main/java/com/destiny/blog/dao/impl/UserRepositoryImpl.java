@@ -2,14 +2,22 @@ package com.destiny.blog.dao.impl;
 
 import com.destiny.blog.dao.BaseHibernate;
 import com.destiny.blog.dao.custom.UserCustom;
+import com.destiny.blog.domain.pojo.Resource;
+import com.destiny.blog.domain.pojo.Role;
 import com.destiny.blog.domain.pojo.User;
 import com.destiny.blog.exception.CommomException;
+import com.destiny.blog.service.RoleService;
 import com.destiny.blog.util.StringUtil;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @ClassName UserRepositotyImpl
@@ -20,6 +28,15 @@ import java.util.Map;
 @Slf4j
 public class UserRepositoryImpl extends BaseHibernate<User> implements UserCustom {
 
+    @Override
+    public Set<Resource> findResourceByUsername(String username) {
+        User user = findUserInfo(username, null, 1);
+        Set<Resource> resources = Sets.newHashSet();
+        user.getRoles().stream().map(role ->
+            resources.addAll(role.getResources())
+         );
+        return resources;
+    }
 
     @Override
     public User findUserInfo(String name, String email, Integer flag) {

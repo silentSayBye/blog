@@ -2,6 +2,7 @@ package com.destiny.blog.config.security;
 
 import com.alibaba.fastjson.JSON;
 import com.destiny.blog.domain.vo.Response;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,6 @@ import java.io.IOException;
 
 /**
  * 当未登录或者token失效访问接口时，自定义的返回结果@ClassName RestAuthenticationEntryPoint
-
  **/
 @Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
@@ -21,6 +21,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
        response.setCharacterEncoding("UTF-8");
        response.setContentType("application/json");
+       response.setStatus(HttpStatus.FORBIDDEN.value());
        response.getWriter().println(JSON.toJSON(Response.unauthorized(e.getMessage())));
        response.getWriter().flush();
     }

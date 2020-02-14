@@ -15,14 +15,15 @@ import java.io.Serializable;
 @ToString
 public class ArticleCategory extends BaseEntity<Integer> implements Serializable{
 
-
     @Column(name = "category")
     private String category;
+
+    @Column(name = "type")
+    private Integer type;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "delete_flag")
-    private  Integer deleteFlag;
-
+    @Column(name = "status")
+    private  Integer status;
 }

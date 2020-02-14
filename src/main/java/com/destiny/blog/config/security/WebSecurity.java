@@ -1,6 +1,7 @@
 package com.destiny.blog.config.security;
 
 
+import com.destiny.blog.dao.UserRepository;
 import com.destiny.blog.domain.dto.UserDto;
 import com.destiny.blog.domain.pojo.Resource;
 import com.destiny.blog.domain.pojo.User;
@@ -31,13 +32,14 @@ import java.util.Set;
  * @Date 2019/7/24 21:00
  * @Version 1.0
  **/
+
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
 
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
@@ -55,11 +57,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
                 .authorizeRequests();
         //不需要保护的资源路径允许访问
@@ -109,9 +108,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService (){
         return username ->{
             Assert.notNull(username,"用户名不能为空！");
-            User user = userService.findByUsername(username);
+            User user = userRepository.findByUsername(username);
             if (user != null){
-                Set<Resource> resources = userService.findResourceByUsername(username);
+                Set<Resource> resources = userRepository.findResourceByUsername(username);
                 return new UserDto(user, resources);
             }
             throw new UsernameNotFoundException("该用户不存在");

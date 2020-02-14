@@ -9,18 +9,21 @@ import java.io.Serializable;
 @Table(name = "d_article")
 public class Article extends BaseEntity<Integer> implements Serializable {
 
-
     @Column(name = "title")
     private String title;
 
-    @Lob
-    @Column(name = "content1")
-    private String content1;
+    @Column(name = "system_class")
+    private Integer systemClass;
 
-    @Lob
-    @Column(name = "content2")
-    private String content2;
+    @Column(name = "user_class")
+    private Integer userClass;
 
-    @Column(name = "delete_flag")
-    private Integer deleteFlag;
+    @Column(name = "type")
+    private Integer type;
+
+    @Column(name = "publish_type")
+    private Integer publishType;
+
+    @Column(name = "status")
+    private Integer status;
 }

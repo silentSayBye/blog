@@ -2,6 +2,7 @@ package com.destiny.blog.domain.vo;
 
 import com.destiny.blog.domain.base.Result;
 import com.destiny.blog.domain.enums.ResponseCode;
+import com.destiny.blog.domain.enums.ResponseStatus;
 import lombok.Data;
 import lombok.ToString;
 
@@ -16,8 +17,8 @@ public class Response<T> implements Serializable, Result {
 
    public static <T> Response unauthorized (T data){
        return Response.bulider()
-               .code(ResponseCode.UNAUTHORIZED.getCode())
-               .message(ResponseCode.UNAUTHORIZED.getMessage())
+               .code(ResponseCode.FAILED.getCode())
+               .message(ResponseStatus.UNAUTHORIZED.getMessage())
                .data(data)
                .bulid();
    }
@@ -25,7 +26,7 @@ public class Response<T> implements Serializable, Result {
     public static <T> Response failed (T data){
         return Response.bulider()
                 .code(ResponseCode.FAILED.getCode())
-                .message(ResponseCode.FAILED.getMessage())
+                .message(ResponseStatus.FAILED.getMessage())
                 .data(data)
                 .bulid();
     }
@@ -33,15 +34,15 @@ public class Response<T> implements Serializable, Result {
     public static <T> Response success (T data){
         return Response.bulider()
                 .code(ResponseCode.SUCCUSS.getCode())
-                .message(ResponseCode.SUCCUSS.getMessage())
+                .message(ResponseStatus.SUCCUSS.getMessage())
                 .data(data)
                 .bulid();
     }
 
     public static <T> Response forbidden (T data){
         return Response.bulider()
-                .code(ResponseCode.FORBIDDEN.getCode())
-                .message(ResponseCode.FORBIDDEN.getMessage())
+                .code(ResponseCode.FAILED.getCode())
+                .message(ResponseStatus.FORBIDDEN.getMessage())
                 .data(data)
                 .bulid();
     }

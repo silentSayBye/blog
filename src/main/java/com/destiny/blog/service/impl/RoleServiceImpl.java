@@ -6,6 +6,7 @@ import com.destiny.blog.exception.CustomException;
 import com.destiny.blog.service.RoleService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,7 +25,7 @@ public class RoleServiceImpl implements RoleService {
     public Role insertRole(String roleName, String roleCode, String description) {
 
         if (StringUtils.isBlank(roleCode)){
-            throw new CustomException("roleCode 不能为空！");
+            throw new CustomException("roleCode 不能为空！", HttpStatus.BAD_REQUEST);
         }
         // roleCode唯一
         Role role = roleRepository.findByCodeAndDeleteFlag(roleCode, 1);

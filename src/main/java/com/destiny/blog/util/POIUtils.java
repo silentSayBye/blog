@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -55,7 +56,7 @@ public class POIUtils {
 
     public static Boolean checkFile(MultipartFile file){
         if (file == null || file.isEmpty()){
-            throw new CustomException("文件不存在或者文件为空");
+            throw new CustomException("文件不存在或者文件为空", HttpStatus.BAD_REQUEST);
         }
         String filename = file.getOriginalFilename();
         return filename.endsWith("xlsx")|| filename.endsWith("xls");
@@ -69,7 +70,7 @@ public class POIUtils {
             } else if (filename.endsWith("xlsx")){
                 return new XSSFWorkbook(in);
             }else{
-                throw new CustomException(String.format("不支持%s该类型",filename.split(".")[1]));
+                throw new CustomException(String.format("不支持%s该类型",filename.split(".")[1]), HttpStatus.BAD_REQUEST);
             }
         }catch (IOException e ){
             e.printStackTrace();

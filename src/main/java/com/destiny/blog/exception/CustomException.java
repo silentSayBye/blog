@@ -3,6 +3,7 @@ package com.destiny.blog.exception;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
@@ -10,6 +11,7 @@ import lombok.ToString;
 public class CustomException extends RuntimeException{
     private String message;
     private Throwable cause;
+    private HttpStatus status;
 
     public CustomException(){
         super();
@@ -20,5 +22,10 @@ public class CustomException extends RuntimeException{
     }
     public CustomException(String message){
         this.message = message;
+    }
+
+    public CustomException(String message, HttpStatus status){
+        this.message = message;
+        this.status = status;
     }
 }

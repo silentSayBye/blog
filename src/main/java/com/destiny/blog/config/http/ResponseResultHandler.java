@@ -3,7 +3,7 @@ package com.destiny.blog.config.http;
 import com.destiny.blog.config.annotation.ResponseResult;
 import com.destiny.blog.config.interceptor.ResponseInterceptor;
 import com.destiny.blog.domain.base.Result;
-import com.destiny.blog.domain.enums.ResponseCode;
+import com.destiny.blog.domain.enums.ResponseStatus;
 import com.destiny.blog.domain.vo.DefaultErrorResult;
 import com.destiny.blog.domain.vo.Response;
 import com.destiny.blog.util.JsonUtil;
@@ -44,7 +44,7 @@ public class ResponseResultHandler implements ResponseBodyAdvice {
                 DefaultErrorResult defaultErrorResult = (DefaultErrorResult)body;
                 return Response.bulider().code(defaultErrorResult.getCode().toString())
                         .message(defaultErrorResult.getMessage())
-                        .data(defaultErrorResult.getErrors())
+                        .data(defaultErrorResult.getMessage())
                         .bulid();
             }else if (body instanceof String){
                 return JsonUtil.objectToJson(Response.success(body));

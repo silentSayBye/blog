@@ -1,11 +1,8 @@
 package com.destiny.blog.util;
 
-import com.alibaba.fastjson.JSON;
-import com.destiny.blog.domain.dto.UserDto;
-import com.google.common.collect.Lists;
+
 import com.google.common.collect.Maps;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.lang.Collections;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +14,6 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 /**
@@ -49,7 +45,6 @@ public class JwtUtil {
     /**
      * @Author Administrator
      * 生成token
-     **//**
      * @Author Administrator
      * 生成token
      **/
@@ -79,14 +74,14 @@ public class JwtUtil {
     /**
      * @Description 验证token
      **/
-    public Boolean validToken(UserDto userDto,String token){
+    public Boolean validToken(UserDetails userDto, String token){
         String username = getUsernameFromToken(token);
         return (username.equals(userDto.getUsername())
                 && isTokenExpiration(token));
     }
 
 
-    private String getUsernameFromToken(String token){
+    public String getUsernameFromToken(String token){
         Claims claims = parseToken(token);
         return (String)claims.get("CLAIM_KEY_USER");
     }

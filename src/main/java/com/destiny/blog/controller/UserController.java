@@ -9,8 +9,7 @@ import com.google.common.collect.Maps;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * @ClassName UserController
- * @Author Administrator
  * @Date 2019/6/2422:09
  * @Version 1.0
  **/
@@ -28,13 +25,15 @@ import java.util.Map;
 @Slf4j
 public class UserController {
 
+    @Value("${jwt.tokenHeader}")
+    private String tokenHeader;
 
     @Autowired
     private UserService userService;
 
     @ApiOperation("用户登录")
     @PostMapping(path = "/login")
-    public Response login(@RequestBody User user) throws Exception{
+    public Response login(@RequestBody User user){
         String token = null;
         try{
             token = userService.login(user.getUsername(), user.getPassword());
@@ -42,13 +41,13 @@ public class UserController {
             return Response.failed("登录失败");
         }
         Map<String,String> response = Maps.newHashMap();
-        response.put("token",token);
+        response.put(tokenHeader,token);
         return Response.success(response);
     }
 
     @ApiOperation("用户注册")
     @PostMapping(path = "/register")
-    public Response register(@RequestBody User user) throws Exception{
+    public Response register(@RequestBody User user){
         UserDto userDto = userService.register(user.getUsername(), user.getPassword());
         if (userDto == null){
             return Response.success("用户已存在");

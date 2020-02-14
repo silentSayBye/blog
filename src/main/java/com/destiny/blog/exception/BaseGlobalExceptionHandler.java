@@ -1,7 +1,9 @@
 package com.destiny.blog.exception;
 
 import com.destiny.blog.domain.enums.ResponseCode;
+import com.destiny.blog.domain.enums.ResponseStatus;
 import com.destiny.blog.domain.vo.DefaultErrorResult;
+import com.destiny.blog.util.DateUtils;
 import com.destiny.blog.util.RequestContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,15 +26,17 @@ public class BaseGlobalExceptionHandler {
     /**
      * 处理验证参数封装错误时异常
      */
-    protected DefaultErrorResult handleConstraintViolationException(HttpMessageNotReadableException e, HttpServletRequest request) {
+    protected ResponseEntity<DefaultErrorResult> handleConstraintViolationException(HttpMessageNotReadableException e, HttpServletRequest request) {
         log.info("handleConstraintViolationException start, uri:{}, caused by: ", request.getRequestURI(), e);
-        return DefaultErrorResult.builder().code(Integer.valueOf(ResponseCode.VALIDATE_FAILED.getCode()))
-                .timestamp(new Date())
-                .message(ResponseCode.VALIDATE_FAILED.getMessage())
-                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+        DefaultErrorResult defaultErrorResult = DefaultErrorResult.builder()
+                .code(Integer.valueOf(ResponseCode.FAILED.getCode()))
+                .timestamp(DateUtils.currentDateTime())
+                .message(e.getMessage())
                 .exception(e.getClass().getName())
                 .path(RequestContextUtil.getRequest().getRequestURI())
                 .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(defaultErrorResult);
     }
 
     /**
@@ -40,30 +44,33 @@ public class BaseGlobalExceptionHandler {
      */
     protected ResponseEntity<DefaultErrorResult> handleBusinessException(CustomException e, HttpServletRequest request) {
         log.info("handleBusinessException start, uri:{}, exception:{}, caused by: {}", request.getRequestURI(), e.getClass(), e.getMessage());
-        DefaultErrorResult defaultErrorResult = DefaultErrorResult.builder().code(Integer.valueOf(ResponseCode.VALIDATE_FAILED.getCode()))
-                .timestamp(new Date())
-                .message(ResponseCode.VALIDATE_FAILED.getMessage())
-                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                .exception(e.getClass().getName())
-                .path(RequestContextUtil.getRequest().getRequestURI())
-                .build();
+        DefaultErrorResult defaultErrorResult =
+                DefaultErrorResult.builder()
+                        .code(Integer.valueOf(ResponseCode.FAILED.getCode()))
+                        .timestamp(DateUtils.currentDateTime())
+                        .message(e.getMessage())
+                        .exception(e.getClass().getName())
+                        .path(RequestContextUtil.getRequest().getRequestURI())
+                        .build();
         return ResponseEntity
-                .status(HttpStatus.valueOf(defaultErrorResult.getStatus()))
+                .status(e.getStatus())
                 .body(defaultErrorResult);
     }
 
     /**
      * 处理运行时系统异常
      */
-    protected DefaultErrorResult handleRuntimeException(RuntimeException e, HttpServletRequest request) {
+    protected ResponseEntity<DefaultErrorResult> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
         log.error("handleRuntimeException start, uri:{}, caused by: ", request.getRequestURI(), e);
-        return DefaultErrorResult.builder().code(Integer.valueOf(ResponseCode.FAILED.getCode()))
-                .timestamp(new Date())
-                .message(ResponseCode.FAILED.getMessage())
-                .error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
+        DefaultErrorResult defaultErrorResult = DefaultErrorResult.builder()
+                .code(Integer.valueOf(ResponseCode.FAILED.getCode()))
+                .timestamp(DateUtils.currentDateTime())
+                .message(e.getMessage())
                 .exception(e.getClass().getName())
                 .path(RequestContextUtil.getRequest().getRequestURI())
                 .build();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(defaultErrorResult);
     }
 
 }

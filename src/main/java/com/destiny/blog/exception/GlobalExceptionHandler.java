@@ -22,7 +22,7 @@ public class GlobalExceptionHandler extends BaseGlobalExceptionHandler{
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({HttpMessageNotReadableException.class})
-    protected DefaultErrorResult handleConstraintViolationException(HttpMessageNotReadableException e, HttpServletRequest request) {
+    protected ResponseEntity<DefaultErrorResult> handleConstraintViolationException(HttpMessageNotReadableException e, HttpServletRequest request) {
         return super.handleConstraintViolationException(e, request);
     }
 
@@ -33,7 +33,7 @@ public class GlobalExceptionHandler extends BaseGlobalExceptionHandler{
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({RuntimeException.class})
-    protected DefaultErrorResult handleRuntimeException(RuntimeException e, HttpServletRequest request) {
+    protected ResponseEntity<DefaultErrorResult> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
         return super.handleRuntimeException(e, request);
     }
 }
