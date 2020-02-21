@@ -8,6 +8,11 @@ spring:
         enable_lazy_load_no_trans: true
     open-in-view: true
 
+  cache:
+    type: redis
+
+
+
 jwt:
   tokenHeader: auth-token #JWT存储的请求头
   secure: ZAQ!xsw2

@@ -54,3 +54,13 @@ role:
   name: regular
   code: regular
   description: 普通用户
+
+authority:
+  mybatisAuthoritySettings:
+    -
+      authorityCode: TEST_AUTHORITY
+      columnConstraints:
+        -
+          columnName: state
+          operation: EQUAL
+          constraints: "'state3'"

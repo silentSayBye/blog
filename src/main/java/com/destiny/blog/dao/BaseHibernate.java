@@ -3,6 +3,7 @@ package com.destiny.blog.dao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -20,6 +21,7 @@ public class BaseHibernate<T extends Serializable> {
 
     private static Logger logger = LoggerFactory.getLogger(BaseHibernate.class);
 
+    @Autowired
     @PersistenceContext
     private EntityManager em;
 
@@ -73,7 +75,6 @@ public class BaseHibernate<T extends Serializable> {
     public T findObjectByCondition(String sql,Map<String,Object> condition){
         Query query = em.createNativeQuery(sql,clazz);
         setParamter(query,condition);
-        logger.info("result is {}",query.getSingleResult());
         return (T) query.getSingleResult();
     }
 

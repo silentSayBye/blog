@@ -2,6 +2,7 @@ package com.destiny.blog.dao.impl;
 
 import com.destiny.blog.dao.BaseHibernate;
 import com.destiny.blog.dao.custom.UserCustom;
+import com.destiny.blog.domain.pojo.Authority;
 import com.destiny.blog.domain.pojo.Resource;
 import com.destiny.blog.domain.pojo.Role;
 import com.destiny.blog.domain.pojo.User;
@@ -29,13 +30,13 @@ import java.util.Set;
 public class UserRepositoryImpl extends BaseHibernate<User> implements UserCustom {
 
     @Override
-    public Set<Resource> findResourceByUsername(String username) {
+    public Set<Authority> findAuthorityByUsername(String username) {
         User user = findUserInfo(username, null, 1);
-        Set<Resource> resources = Sets.newHashSet();
-        user.getRoles().stream().map(role ->
-            resources.addAll(role.getResources())
+        Set<Authority> authorities = Sets.newHashSet();
+        user.getRoles().forEach(role ->
+                authorities.addAll(role.getAuthorityList())
          );
-        return resources;
+        return authorities;
     }
 
     @Override

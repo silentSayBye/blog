@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class ArticleCategoryVO {
 
+    private Integer id;
+
     private String category;
 
     @NotNull

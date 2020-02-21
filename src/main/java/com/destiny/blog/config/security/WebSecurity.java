@@ -3,13 +3,20 @@ package com.destiny.blog.config.security;
 
 import com.destiny.blog.dao.UserRepository;
 import com.destiny.blog.domain.dto.UserDto;
+import com.destiny.blog.domain.pojo.Authority;
 import com.destiny.blog.domain.pojo.Resource;
 import com.destiny.blog.domain.pojo.User;
 import com.destiny.blog.service.UserService;
+import com.google.common.collect.Lists;
+import com.sun.corba.se.spi.ior.ObjectKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.vote.AffirmativeBased;
+import org.springframework.security.access.vote.AuthenticatedVoter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -22,9 +29,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.util.Assert;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -85,7 +95,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 // 自定义权限拦截器JWT过滤器
                 .and()
-                .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class);
     }
 
     @Bean
@@ -105,13 +116,45 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public FilterInvocationSecurityMetadataSource securityMetadata(){
+        return new CustomSecurityMetadata();
+    }
+
+    @Bean
+    public FullyMatchRoleVoter fullyMatchRoleVoter(){
+        return new FullyMatchRoleVoter();
+    }
+
+    @Bean
+    public AuthenticatedVoter authenticatedVoter() {
+        return new AuthenticatedVoter();
+    }
+
+    @Bean
+    public AccessDecisionManager accessDecisionManager(){
+        List<AccessDecisionVoter<? extends Object>> voters = Lists.newArrayList();
+        voters.add(fullyMatchRoleVoter());
+        voters.add(authenticatedVoter());
+        AffirmativeBased accessDecisionManager = new AffirmativeBased(voters);
+        return accessDecisionManager;
+    }
+
+    @Bean
+    public FilterSecurityInterceptor  filterSecurityInterceptor(){
+        FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
+        filterSecurityInterceptor.setSecurityMetadataSource(securityMetadata());
+        filterSecurityInterceptor.setAccessDecisionManager(accessDecisionManager());
+        return filterSecurityInterceptor;
+    }
+
+    @Bean
     public UserDetailsService userDetailsService (){
         return username ->{
             Assert.notNull(username,"用户名不能为空！");
             User user = userRepository.findByUsername(username);
             if (user != null){
-                Set<Resource> resources = userRepository.findResourceByUsername(username);
-                return new UserDto(user, resources);
+                Set<Authority> authorities = userRepository.findAuthorityByUsername(username);
+                return new UserDto(user, authorities);
             }
             throw new UsernameNotFoundException("该用户不存在");
         };

@@ -1,3 +1,4 @@
+/*
 package com.destiny.blog.dao;
 
 import com.destiny.blog.dao.custom.RoleResourceCustom;
@@ -18,10 +19,11 @@ public interface RoleResourceRepository extends JpaRepository<RoleResource,Integ
 
     Page<RoleResource> findAll(Pageable pageable);
 
-    List<RoleResource> findAllByDeleteFlag(@Param("flag")Integer flag);
+    List<RoleResource> findAllByState(@Param("state")Integer state);
 
     @Transactional
     @Modifying
-    @Query("update RoleResource r set r.deleteFlag = 0 where r.id = :id")
+    @Query("update RoleResource r set r.state = 0 where r.id = :id")
     boolean delRoleResource(@Param("id")Integer id);
 }
+*/

@@ -22,6 +22,6 @@ public class UserRole extends BaseEntity<Integer> implements Serializable {
     private Integer roleId;
 
     @Column(name = "state")
-    private Integer deleteFlag;
+    private Integer state;
 
 }

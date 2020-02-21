@@ -8,11 +8,7 @@ import java.io.Serializable;
 
 @Table(name = "d_article_category")
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Data
 public class ArticleCategory extends BaseEntity<Integer> implements Serializable{
 
     @Column(name = "category")

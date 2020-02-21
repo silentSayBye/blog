@@ -1,6 +1,7 @@
 package com.destiny.blog.service;
 
 import com.destiny.blog.domain.dto.UserDto;
+import com.destiny.blog.domain.pojo.Authority;
 import com.destiny.blog.domain.pojo.Resource;
 import com.destiny.blog.domain.pojo.Role;
 import com.destiny.blog.domain.pojo.User;
@@ -29,7 +30,7 @@ public interface UserService {
 
     List<Role> findRoleByUsername(String username);
 
-    Set<Resource> findResourceByUsername(String username);
+    Set<Authority> findAuthorityByUsername(String username);
 
     User findByUsername(String username);
 

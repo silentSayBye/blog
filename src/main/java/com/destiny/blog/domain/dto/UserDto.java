@@ -1,5 +1,6 @@
 package com.destiny.blog.domain.dto;
 
+import com.destiny.blog.domain.pojo.Authority;
 import com.destiny.blog.domain.pojo.Resource;
 import com.destiny.blog.domain.pojo.User;
 import com.google.common.collect.Lists;
@@ -28,19 +29,19 @@ import java.util.stream.Collectors;
 public class UserDto implements UserDetails {
 
     private User user;
-    private Set<Resource> resources;
+    private Set<Authority> authorities;
 
     public UserDto(){}
 
-    public UserDto (User user, Set<Resource> resources){
+    public UserDto (User user, Set<Authority> authorities){
         this.user = user;
-        this.resources = resources;
+        this.authorities = authorities;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return resources.stream().filter(resource -> resource.getCode() != null)
-            .map(resource -> new SimpleGrantedAuthority(resource.getCode()))
+        return authorities.stream().filter(authority -> authority.getCode() != null)
+            .map(authority -> new SimpleGrantedAuthority(authority.getCode()))
             .collect(Collectors.toList());
     }
 

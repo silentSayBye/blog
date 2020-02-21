@@ -1,3 +1,4 @@
+/*
 package com.destiny.blog.dao.impl;
 
 import com.destiny.blog.dao.BaseHibernate;
@@ -7,12 +8,14 @@ import com.google.common.collect.Maps;
 
 import java.util.Map;
 
+*/
 /**
  * @ClassName RoleResourceRepositoryImpl
  * @Author Administrator
  * @Date 2019/6/1723:13
  * @Version 1.0
- **/
+ **//*
+
 public class RoleResourceRepositoryImpl extends BaseHibernate<RoleResource> implements RoleResourceCustom {
 
     @Override
@@ -39,3 +42,4 @@ public class RoleResourceRepositoryImpl extends BaseHibernate<RoleResource> impl
         return roleResource;
     }
 }
+*/

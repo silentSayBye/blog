@@ -66,24 +66,25 @@ public class JwtUtil {
     /**
      * @Description token是否可刷新
      **/
-    public Boolean canRefreshToken(String token){
-        Date expiration = getExpirationFromToken(token);
-        return expiration.before(new Date());
-    }
+//    public Boolean canRefreshToken(String token){
+//        Date expiration = getExpirationFromToken(token);
+//        return expiration.before(new Date());
+//    }
 
     /**
      * @Description 验证token
      **/
     public Boolean validToken(UserDetails userDto, String token){
         String username = getUsernameFromToken(token);
-        return (username.equals(userDto.getUsername())
-                && isTokenExpiration(token));
+        return username.equals(userDto.getUsername());
+//        return (username.equals(userDto.getUsername())
+//                && isTokenExpiration(token));
     }
 
 
     public String getUsernameFromToken(String token){
         Claims claims = parseToken(token);
-        return (String)claims.get("CLAIM_KEY_USER");
+        return (String)claims.get(CLAIM_KEY_USER);
     }
 
     public void deleteTokn(String username){
@@ -114,34 +115,35 @@ public class JwtUtil {
                     .setSigningKey(secure)
                     .parseClaimsJws(token)
                     .getBody();
+            log.info("token is {}",claims);
         }catch (Exception e){
             log.info("claim parse failure");
         }
         return claims ;
     }
 
-    private Date getExpirationFromToken(String token){
-        Claims claims = parseToken(token);
-        Date date = null;
-        if (claims != null){
-            date = claims.getExpiration();
-        }
-        return date;
-    }
+//    private Date getExpirationFromToken(String token){
+//        Claims claims = parseToken(token);
+//        Date date = null;
+//        if (claims != null){
+//            date = claims.getExpiration();
+//        }
+//        return date;
+//    }
 
-   private Date getCreatedDateFromToken(String token){
-        Claims claims = parseToken(token);
-        Date date = null;
-        if (claims != null){
-            date = claims.getIssuedAt();
-        }
-        return date;
-    }
+//   private Date getCreatedDateFromToken(String token){
+//        Claims claims = parseToken(token);
+//        Date date = null;
+//        if (claims != null){
+//            date = claims.getIssuedAt();
+//        }
+//        return date;
+//    }
 
-    private Boolean isTokenExpiration(String token){
-        Date expiration = getExpirationFromToken(token);
-        return expiration.before(new Date());
-    }
+//    private Boolean isTokenExpiration(String token){
+//        Date expiration = getExpirationFromToken(token);
+//        return expiration.before(new Date());
+//    }
 
 
     private Map<String,Object> setClaims(UserDetails userDto){
@@ -162,10 +164,10 @@ public class JwtUtil {
         return new Date(System.currentTimeMillis()+ expiration * 1000);
     }
 
-    private List authoritiesToArray(Collection<? extends GrantedAuthority> authorities){
-        return authorities.stream().map(authority -> authority.getAuthority())
-                .collect(Collectors.toList());
-    }
+//    private List authoritiesToArray(Collection<? extends GrantedAuthority> authorities){
+//        return authorities.stream().map(authority -> authority.getAuthority())
+//                .collect(Collectors.toList());
+//    }
 
 //    public static void main(String[] args) {
 //       Date now = new Date();

@@ -4,6 +4,7 @@ import com.destiny.blog.domain.vo.DefaultErrorResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,9 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class GlobalExceptionHandler extends BaseGlobalExceptionHandler{
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({HttpMessageNotReadableException.class})
-    protected ResponseEntity<DefaultErrorResult> handleConstraintViolationException(HttpMessageNotReadableException e, HttpServletRequest request) {
+    @ExceptionHandler(value = {HttpMessageNotReadableException.class,
+            MethodArgumentNotValidException.class})
+    protected ResponseEntity<DefaultErrorResult> handleConstraintViolationException(Exception e, HttpServletRequest request) {
         return super.handleConstraintViolationException(e, request);
     }
 

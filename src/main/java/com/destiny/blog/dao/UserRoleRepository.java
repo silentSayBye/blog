@@ -14,10 +14,10 @@ import java.util.List;
 @Repository
 public interface UserRoleRepository extends JpaRepository<UserRole,Integer> , UserRoleCostom {
 
-        List<UserRole> findAllByDeleteFlag(@Param("deleteFlag") Integer flag);
+        List<UserRole> findAllByState(@Param("state") Integer flag);
 
         @Modifying
         @Transactional
-        @Query("update UserRole u set u.deleteFlag = 0 where u.id = :id")
+        @Query("update UserRole u set u.state = 0 where u.id = :id")
         Boolean delUserRole(@Param("id") Integer id);
 }

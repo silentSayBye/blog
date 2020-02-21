@@ -14,32 +14,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.net.InterfaceAddress;
 import java.util.List;
 
-/**
- * @ClassName RoleRepository
- * @Author Administrator
- * @Date 2019/6/1721:30
- * @Version 1.0
- **/
-
 @Repository
-public interface RoleRepository extends JpaRepository<Role,Integer>, RoleCustom {
+public interface   RoleRepository extends JpaRepository<Role,Integer>, RoleCustom {
 
-    List<Role> findAllByDeleteFlag(@Param("deleteFlag") Integer flag);
+    List<Role> findAllByState(@Param("state") Integer flag);
 
     Page<Role> findAll(Pageable pageable);
 
-    /**
-     * @Author Administrator
-     * @Description 逻辑删除 role
-     * @Date 23:08 2019/6/17
-     * @Param [id]
-     * @Return java.lang.Boolean
-     **/
     @Modifying
     @Transactional
-    @Query("update Role r set r.deleteFlag = 0 where r.id = :id")
+    @Query("update Role r set r.state = 0 where r.id = :id")
     Boolean delRole(@Param("id")Integer id);
 
-    Role findByCodeAndDeleteFlag(@Param("code")String code, @Param("deleteFlag")Integer deleteFlag);
+    Role findByCodeAndState(@Param("code")String code, @Param("state")Integer state);
 
 }

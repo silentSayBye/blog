@@ -10,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 /**
- * @ClassName RoleServiceImpl
- * @Author Administrator
- * @Date 2020/2/1021:15
+ * @Date 2020/2/10 21:15
  * @Version 1.0
  **/
 @Service
@@ -28,13 +26,13 @@ public class RoleServiceImpl implements RoleService {
             throw new CustomException("roleCode 不能为空！", HttpStatus.BAD_REQUEST);
         }
         // roleCode唯一
-        Role role = roleRepository.findByCodeAndDeleteFlag(roleCode, 1);
+        Role role = roleRepository.findByCodeAndState(roleCode, 1);
         if (role != null){
             return role;
         }
         role = Role.builder()
                 .code(roleCode)
-                .deleteFlag(1)
+                .state(1)
                 .description(description)
                 .roleName(roleName)
                 .build();

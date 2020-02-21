@@ -51,8 +51,12 @@ public class Resource extends BaseEntity<Integer> implements Serializable  {
     private HttpMethodEnum httpMethod;
 
     @Column(name = "state")
-    private int deleteFlag;
+    private int state;
 
-    @ManyToMany(mappedBy = "resources")
-    private List<Role> roles = Lists.newArrayList();
+    @ManyToMany
+    @JoinTable(name = "d_resource_authority", joinColumns = {@JoinColumn(name = "resource_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "authority_id")
+    })
+    private List<Authority> authorityList = Lists.newArrayListWithCapacity(10);
+
 }

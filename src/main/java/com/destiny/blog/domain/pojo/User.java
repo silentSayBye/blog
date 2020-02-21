@@ -16,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-//@Proxy(lazy = false)
 public class User extends BaseEntity<Integer> implements Serializable {
 
     @Column(name = "user_name")

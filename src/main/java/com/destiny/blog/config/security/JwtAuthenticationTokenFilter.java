@@ -1,6 +1,7 @@
 package com.destiny.blog.config.security;
 
 import com.destiny.blog.util.JwtUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,18 +20,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @ClassName JwtAuthenticationTokenFilter
- * @Author Administrator
- * @Date 2019/12/3022:37
+ * @Date 2019/12/30 22:37
  * @Version 1.0
  **/
+@Slf4j
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
-    @Value("$jwt.tokenHeader")
+    @Value("${jwt.tokenHeader}")
     private String tokenHeader;
 
-    @Value("$jwt.tokenHead")
+    @Value("${jwt.tokenHead}")
     private String tokenHead;
 
     @Autowired
@@ -43,7 +43,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        String token = request.getHeader("tokenHeader");
+        String token = request.getHeader(tokenHeader);
         if (StringUtils.isNotBlank(token) && token.startsWith(tokenHead)){
             token = token.substring(tokenHead.length() + 1);
             String username = jwtUtil.getUsernameFromToken(token);
@@ -54,6 +54,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                             new UsernamePasswordAuthenticationToken(userDto, null, userDto.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authentication);
+                    log.info("userDto is {}" , userDto);
                 }
             }
         }

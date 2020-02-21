@@ -25,15 +25,15 @@ public interface ResourceRepository extends JpaRepository<Resource,Integer>, Res
 
     Page<Resource> findAll(Pageable pageable);
 
-    List<Resource> findAllByDeleteFlag(@Param("flag")Integer flag);
+    List<Resource> findAllByState(@Param("state")Integer flag);
 
-    Resource findByCodeAndDeleteFlag(@Param("code")String code, @Param("flag")String flag);
+    Resource findByCodeAndState(@Param("code")String code, @Param("state")String flag);
 
-    Resource findAllByParentIdAndDeleteFlag(@Param("parentId")Integer parentId, @Param("flag")Integer flag);
+    Resource findAllByParentIdAndState(@Param("parentId")Integer parentId, @Param("state")Integer flag);
 
     @Modifying
     @Transactional
-    @Query("update Resource r set r.deleteFlag = 1 where r.id = :id")
+    @Query("update Resource r set r.state = 1 where r.id = :id")
     boolean deleteResource(@Param("id")Integer id);
 
 

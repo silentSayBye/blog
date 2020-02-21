@@ -1,9 +1,11 @@
 package com.destiny.blog.service.impl;
 
+import com.destiny.blog.dao.AuthorityRepository;
 import com.destiny.blog.dao.ResourceRepository;
 import com.destiny.blog.dao.RoleRepository;
 import com.destiny.blog.dao.UserRepository;
 import com.destiny.blog.domain.dto.UserDto;
+import com.destiny.blog.domain.pojo.Authority;
 import com.destiny.blog.domain.pojo.Resource;
 import com.destiny.blog.domain.pojo.Role;
 import com.destiny.blog.domain.pojo.User;
@@ -49,7 +51,7 @@ public class UserServiceImpl implements UserService {
     private RoleService roleService;
 
     @Autowired
-    private ResourceRepository resourceRepository;
+    private AuthorityRepository authorityRepository;
 
     @Autowired
     @SuppressWarnings("all")
@@ -175,14 +177,14 @@ public class UserServiceImpl implements UserService {
      * @Param [username]
      **/
     @Override
-    public Set<Resource> findResourceByUsername(String username){
+    public Set<Authority> findAuthorityByUsername(String username){
         List<Role> roles = findRoleByUsername(username);
-        Set<Resource> resources = Sets.newLinkedHashSet();
+        Set<Authority> authorities = Sets.newLinkedHashSet();
         for (Role role:roles){
-            List<Resource> temp = role.getResources();
-            resources.addAll(temp);
+            List<Authority> temp = role.getAuthorityList();
+            authorities.addAll(temp);
         }
-        return resources;
+        return authorities;
     }
 
     @Override
@@ -204,7 +206,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User registerUser = User.builder().username(username).password(passwordEncoder.encode(password)).build();
-        Role role = roleRepository.findByCodeAndDeleteFlag(roleCode, 1);
+        Role role = roleRepository.findByCodeAndState(roleCode, 1);
         if (role == null){
             role = roleService.insertRole(roleName, roleCode, description);
         }

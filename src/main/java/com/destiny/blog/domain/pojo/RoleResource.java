@@ -13,7 +13,6 @@ import java.io.Serializable;
 @Getter
 public class RoleResource extends BaseEntity<Integer> implements Serializable {
 
-
     @Column(name = "resource_id")
     private Integer resourceId;
 
@@ -21,5 +20,5 @@ public class RoleResource extends BaseEntity<Integer> implements Serializable {
     private Integer roleId;
 
     @Column(name = "state")
-    private Integer deleteFlag;
+    private Integer state;
 }
