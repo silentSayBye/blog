@@ -1,0 +1,71 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/blog
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  redis:
+    database: 0
+    password: lts950410
+    host: 127.0.0.1
+    port: 6379
+    timeout: 5000
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 4
+        min-idle: 1
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    database: mysql
+
+  rabbitmq:
+    host: localhost
+    username: guest
+    password: '!QAZ2wsx'
+    port: 5672
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8090/eureka/
+
+secure:
+  ignore:
+    urls: #安全路径白名单
+      - /swagger-ui.html
+      - /swagger-resources/**
+      - /swagger/**
+      - /**/v2/api-docs
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /webjars/springfox-swagger-ui/**
+      - /actuator/**
+      - /druid/**
+      - /admin/login
+      - /admin/register
+      - /register
+      - /login
+
+role:
+  name: regular
+  code: regular
+  description: 普通用户
+
+authority:
+  mybatisAuthoritySettings:
+    -
+      authorityCode: TEST_AUTHORITY
+      columnConstraints:
+        -
+          columnName: state
+          operation: EQUAL
+          constraints: "'state3'"
