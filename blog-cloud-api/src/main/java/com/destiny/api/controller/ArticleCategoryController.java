@@ -5,8 +5,8 @@ import com.destiny.api.domain.vo.ArticleCategoryVO;
 import com.destiny.api.domain.vo.Response;
 import com.destiny.api.mapper.ArticleCategoryMapper;
 import com.destiny.api.service.ArticleCategoryService;
-import com.google.common.collect.Lists;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +18,7 @@ import java.util.List;
  * @Version 1.0
  **/
 
+@Slf4j
 @RestController
 @RequestMapping("/article")
 public class ArticleCategoryController {
@@ -25,13 +26,11 @@ public class ArticleCategoryController {
     @Autowired
     private ArticleCategoryService articleCategoryService;
 
-
     @ApiOperation("获取文章类别")
     @GetMapping("/category/{typeId}")
     public Response listArticleCategoryByType(@PathVariable("typeId") Integer typeId){
-        List<ArticleCategoryVO> listCategoryVO = Lists.newArrayList();
         List<ArticleCategory> listCategory = articleCategoryService.findAllArticleCategoryByTypeAndStatus(typeId, 1);
-        listCategoryVO = ArticleCategoryMapper.getInstance.entityToVOList(listCategory);
+        List<ArticleCategoryVO> listCategoryVO = ArticleCategoryMapper.getInstance.entityToVOList(listCategory);
         return Response.success(listCategoryVO);
     }
 

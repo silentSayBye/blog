@@ -1,13 +1,14 @@
 server:
   port: 8091
+
 spring:
+  profiles:
+    active: dev
   application:
     name: config-server
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/cestdestiny/blog.git
-          username: cestdestiny
-          password: lts950410
-          search-paths: config-repo
+          uri: https://github.com/cestdestiny/config-repo.git
+          search-paths: config-dev
