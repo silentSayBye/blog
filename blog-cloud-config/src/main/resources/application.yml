@@ -8,4 +8,6 @@ spring:
       server:
         git:
           uri: https://github.com/cestdestiny/blog.git
-
+          username: cestdestiny
+          password: lts950410
+          search-paths: config-repo
