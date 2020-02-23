@@ -1,6 +1,6 @@
 package com.destiny.api.service.impl;
 
-import com.destiny.api.dao.AuthorityRepository;
+import com.blog.security.utils.JwtUtil;
 import com.destiny.api.dao.RoleRepository;
 import com.destiny.api.dao.UserRepository;
 import com.destiny.api.domain.dto.UserDto;
@@ -10,7 +10,6 @@ import com.destiny.api.domain.pojo.User;
 import com.destiny.api.exception.CustomException;
 import com.destiny.api.service.RoleService;
 import com.destiny.api.service.UserService;
-import com.destiny.api.util.JwtUtil;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -43,13 +41,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleService roleService;
-
-    @Autowired
-    private AuthorityRepository authorityRepository;
-
-    @Autowired
-    @SuppressWarnings("all")
-    private AuthenticationManager authenticationManager;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -147,7 +138,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean deleteUser(Integer id){
         return userRepository.deleteUser(id);
-
     }
 
     /**
@@ -183,6 +173,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
+        if (StringUtils.isBlank(username)){
+            return null;
+        }
         return userRepository.findUserInfo(username,null,1);
     }
 

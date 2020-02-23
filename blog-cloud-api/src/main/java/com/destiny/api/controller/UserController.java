@@ -1,6 +1,7 @@
 package com.destiny.api.controller;
 
 import com.destiny.api.domain.dto.UserDto;
+import com.destiny.api.domain.pojo.Authority;
 import com.destiny.api.domain.pojo.User;
 import com.destiny.api.domain.vo.Response;
 import com.destiny.api.exception.CustomException;
@@ -10,11 +11,10 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Date 2019/6/2422:09
@@ -53,5 +53,18 @@ public class UserController {
             return Response.success("用户已存在");
         }
         return Response.success("注册成功");
+    }
+
+    @ApiOperation("根据用户名获取用户信息")
+    @GetMapping("/user/{username}")
+    public Response findByUsername(@PathVariable("username") String username){
+        User user = userService.findByUsername(username);
+        return Response.success(user);
+    }
+
+    @GetMapping("/user/authority/{username}")
+    public Response findAuthorityByUsername(@PathVariable("username") String username){
+        Set<Authority> authorities = userService.findAuthorityByUsername(username);
+        return Response.success(authorities);
     }
 }

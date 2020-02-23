@@ -22,7 +22,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        enable_lazy_load_no_trans: true
+        enable_lazy_load_no_trans: true # 懒加载解决问题
         dialect: org.hibernate.dialect.MySQL5Dialect
     database: mysql
 
@@ -36,37 +36,19 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8090/eureka/
-
-secure:
-  ignore:
-    urls: #安全路径白名单
-      - /swagger-ui.html
-      - /swagger-resources/**
-      - /swagger/**
-      - /**/v2/api-docs
-      - /**/*.js
-      - /**/*.css
-      - /**/*.png
-      - /**/*.ico
-      - /webjars/springfox-swagger-ui/**
-      - /actuator/**
-      - /druid/**
-      - /admin/login
-      - /admin/register
-      - /register
-      - /login
-
-role:
-  name: regular
-  code: regular
-  description: 普通用户
-
-authority:
-  mybatisAuthoritySettings:
-    -
-      authorityCode: TEST_AUTHORITY
-      columnConstraints:
-        -
-          columnName: state
-          operation: EQUAL
-          constraints: "'state3'"
+    healthcheck:
+      enabled: true
+  instance:
+    # 服务续约（秒）
+    # 服务续约间隔时间
+    lease-renewal-interval-in-seconds: 1
+    # 服务失效时间
+    lease-expiration-duration-in-seconds: 1
+    # 不使用主机名来定义注册中心的地址，而使用IP地址的形式，如果设置了
+    #eureka.instance.ip-address 属性，则使用该属性配置的IP，否则自动获取除环路IP外的第一个IP地址
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    # 状态页面的URL，绝对路径
+    status-page-url: http://${eureka.instance.ip-address}:${server.port}/info
+    # 健康检查页面的URL，绝对路径
+    health-check-url: http://${eureka.instance.ip-address}:${server.port}/health

@@ -11,6 +11,7 @@
     <groupId>com.destiny</groupId>
     <artifactId>blog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>blog</name>
     <description>Demo project for Spring Boot</description>
 
@@ -49,6 +50,10 @@
 <!--            <artifactId>spring-cloud-starter-openfeign</artifactId>-->
 <!--        </dependency>-->
 
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-commons</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -138,8 +143,6 @@
         </dependency>
     </dependencies>
 
-
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -161,10 +164,10 @@
     </repositories>
     <build>
         <plugins>
-            <plugin>
+          <!--  <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+            </plugin>-->
             <!-- 使用插件的方式支持MapStruct会导致lombok的部分注解失效-->
            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
