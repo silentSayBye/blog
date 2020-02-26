@@ -5,3 +5,9 @@ spring:
     name: blog-cloud-gateway
   profiles:
     active: dev
+
+zuul:
+  routes:
+    blog-api:
+      path: /api/*
+      serviceId: blog-cloud-api
