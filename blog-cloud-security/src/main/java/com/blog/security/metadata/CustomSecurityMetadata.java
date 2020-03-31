@@ -1,10 +1,12 @@
 package com.blog.security.metadata;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.blog.security.entity.Authority;
 import com.blog.security.entity.Resource;
 import com.blog.security.entity.Response;
 import com.blog.security.exception.FailFetchInfoByFeignException;
-import com.blog.security.service.ResourceRemoteService;
+import com.blog.security.service.UserRemoteService;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -26,12 +29,13 @@ import java.util.stream.Collectors;
  **/
 
 @Slf4j
+@Component
 public class CustomSecurityMetadata implements FilterInvocationSecurityMetadataSource {
 
     private Map<RequestMatcher,Collection<ConfigAttribute>> requestMap = Maps.newLinkedHashMap();
 
     @Autowired
-    private ResourceRemoteService resourceService;
+    private UserRemoteService userRemoteService;
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
@@ -67,11 +71,13 @@ public class CustomSecurityMetadata implements FilterInvocationSecurityMetadataS
     }
 
     public void initRequestMap(){
-        Response response = resourceService.findAllResources();
+        Response response = userRemoteService.findAllResources();
         if (response == null){
             throw new FailFetchInfoByFeignException("获取资源信息失败");
         }else{
-            List<Resource> resources = (List<Resource>)response.getData();
+            List responseData = (List)response.getData();
+            String jsonString = JSON.toJSONString(responseData);
+            List<Resource> resources = JSONObject.parseArray(jsonString, Resource.class);
             resources.forEach(resource -> {
                 List<Authority> authorities = resource.getAuthorityList();
                 if (resource.getUrl() != null){

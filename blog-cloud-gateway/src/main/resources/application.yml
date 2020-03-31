@@ -1,13 +1,22 @@
-server:
-  port: 8092
 spring:
-  application:
-    name: blog-cloud-gateway
   profiles:
     active: dev
+  sleuth:
+    zuul:
+      enabled: true
 
 zuul:
   routes:
     blog-api:
-      path: /api/*
+      path: /api/**
       serviceId: blog-cloud-api
+
+#logger:
+#  level:
+#    com.blog.security.service.ResourceRemoteService: DEBUG
+
+#oauth2:
+#  clientId: destiny
+#  secure: destiny
+#  refreshTokenValiditySeconds: 3600
+#  accessTokenValiditySeconds: 3600

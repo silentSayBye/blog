@@ -16,11 +16,11 @@ public class ArticleCategoryVO {
 
     private String category;
 
-    @NotNull
+    @NotNull(message = "类别不能为空")
     private Integer type;
 
     private String description;
 
-    @NotNull
+    @NotNull(message = "状态代码不能为空")
     private  Integer status;
 }

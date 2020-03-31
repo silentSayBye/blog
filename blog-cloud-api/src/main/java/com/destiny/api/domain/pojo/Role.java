@@ -1,6 +1,7 @@
 package com.destiny.api.domain.pojo;
 
 import com.destiny.api.domain.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import lombok.*;
 
@@ -29,6 +30,7 @@ public class Role extends BaseEntity<Integer> implements Serializable {
     @Column(name = "state")
     private Integer state;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles" )
     private List<User> users;
 

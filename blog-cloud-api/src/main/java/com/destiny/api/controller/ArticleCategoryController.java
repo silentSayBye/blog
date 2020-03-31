@@ -43,6 +43,4 @@ public class ArticleCategoryController {
         }
         return Response.success("添加失败");
     }
-
-
 }

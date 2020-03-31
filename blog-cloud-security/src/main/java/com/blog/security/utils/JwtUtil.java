@@ -49,8 +49,8 @@ public class JwtUtil {
      * @Author Administrator
      * 生成token
      **/
-    public String generalAccessToken(UserDetails userDto){
-        Map<String, Object> claims = setClaims(userDto);
+    public String generalAccessToken(UserDetails user){
+        Map<String, Object> claims = setClaims(user);
 //        claims.put(CLAIM_KEY_AUTHORITIES,authoritiesToArray(userDto.getAuthorities()).get(0));
         return  generateToken(claims);
     }
@@ -147,9 +147,9 @@ public class JwtUtil {
 //    }
 
 
-    private Map<String,Object> setClaims(UserDetails userDto){
+    private Map<String,Object> setClaims(UserDetails user){
         Map claims = Maps.newHashMap();
-        claims.put(CLAIM_KEY_USER,userDto.getUsername());
+        claims.put(CLAIM_KEY_USER,user.getUsername());
         return claims;
     }
 

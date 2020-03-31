@@ -25,14 +25,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ArticleContent extends BaseEntity<Integer> implements Serializable {
 
-    @NotNull
+    @NotNull(message = "文章id不能为空")
     @Column(name = "article_id")
     private Integer articleId;
 
     @Column(name = "content")
     private String content;
 
-    @NotNull
+    @NotNull(message = "排序编号不能为空")
     @Column(name = "order")
     private Integer order;
 }

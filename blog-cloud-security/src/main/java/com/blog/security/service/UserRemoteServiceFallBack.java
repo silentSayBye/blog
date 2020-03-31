@@ -20,4 +20,10 @@ public class UserRemoteServiceFallBack implements UserRemoteService{
     public Response findAuthorityByUsername(String username) {
         return null;
     }
+
+    @Override
+    public Response findAllResources() {
+        return null;
+    }
 }
+

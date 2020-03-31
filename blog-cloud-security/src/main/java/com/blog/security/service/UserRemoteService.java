@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
-@FeignClient(value = "BLOG-CLOUD-API",fallback = UserRemoteServiceFallBack.class)
+@FeignClient(value = "blog-cloud-api",url = "http://localhost:8080/", fallback = UserRemoteServiceFallBack.class)
 public interface UserRemoteService {
 
     @RequestMapping(value = "/user/{username}",method = RequestMethod.GET)
@@ -15,4 +15,7 @@ public interface UserRemoteService {
 
     @RequestMapping(value ="/user/authority/{username}", method = RequestMethod.GET)
     Response findAuthorityByUsername(@PathVariable("username") String username);
+
+    @RequestMapping(value = "/resource",method = RequestMethod.GET)
+    Response findAllResources();
 }

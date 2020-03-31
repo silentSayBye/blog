@@ -1,8 +1,8 @@
 server:
-  port: 8080
+  port: 8092
 spring:
-  profiles:
-    active: dev
+  application:
+    name: blog-cloud-gateway
   cloud:
     config:
       name: config-dev

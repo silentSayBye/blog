@@ -1,5 +1,6 @@
 package com.destiny.api.service.impl;
 
+import com.blog.security.userDetails.CustomerUserDetailsService;
 import com.blog.security.utils.JwtUtil;
 import com.destiny.api.dao.RoleRepository;
 import com.destiny.api.dao.UserRepository;
@@ -19,8 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private CustomerUserDetailsService userDetailsService;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -207,14 +207,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String login(String username, String password) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        if (!passwordEncoder.matches(password, userDetails.getPassword())){
+        User user = userRepository.findByUsername(username);
+        if (user == null){
+            throw new UsernameNotFoundException("用户未注册");
+        }
+        if (!passwordEncoder.matches(password, user.getPassword())){
             throw new BadCredentialsException("密码不正确");
         }
-//        UsernamePasswordAuthenticationToken authenticationToken =
-//                new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
-//        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        String token = jwtUtil.generalAccessToken(userDetails);
-        return token;
+//        com.blog.security.entity.User newUser = new com.blog.security.entity.User();
+//        try{
+//            BeanUtils.copyProperties(user,newUser);
+//        } catch (Exception e){
+//            throw new CustomException("对象转换失败");
+//        }
+//        String token = jwtUtil.generalAccessToken(newUser);
+//        return token;
+        return null;
     }
 }

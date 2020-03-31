@@ -3,9 +3,8 @@ spring:
     name: blog-cloud-api
   cache:
     type: redis
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+#配置日志
+logging:
+  level:
+    com.netflix.discovery: INFO
+    org.apache.http: INFO

@@ -4,16 +4,13 @@ import com.destiny.api.domain.dto.UserDto;
 import com.destiny.api.domain.pojo.Authority;
 import com.destiny.api.domain.pojo.User;
 import com.destiny.api.domain.vo.Response;
-import com.destiny.api.exception.CustomException;
 import com.destiny.api.service.UserService;
-import com.google.common.collect.Maps;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -31,19 +28,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @ApiOperation("用户登录")
-    @PostMapping(path = "/login")
-    public Response login(@RequestBody User user){
-        String token = null;
-        try{
-            token = userService.login(user.getUsername(), user.getPassword());
-        }catch (CustomException e){
-            return Response.failed("登录失败");
-        }
-        Map<String,String> response = Maps.newHashMap();
-        response.put(tokenHeader,token);
-        return Response.success(response);
-    }
+//    @ApiOperation("用户登录")
+//    @PostMapping(path = "/login")
+//    public Response login(@RequestBody User user){
+//        String token = null;
+//        try{
+//            token = userService.login(user.getUsername(), user.getPassword());
+//        }catch (CustomException e){
+//            return Response.failed("登录失败");
+//        }
+//        Map<String,String> response = Maps.newHashMap();
+//        response.put(tokenHeader,token);
+//        return Response.success(response);
+//    }
 
     @ApiOperation("用户注册")
     @PostMapping(path = "/register")

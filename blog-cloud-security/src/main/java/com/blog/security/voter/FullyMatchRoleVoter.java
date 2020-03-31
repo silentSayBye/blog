@@ -6,6 +6,7 @@ import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Set;
@@ -15,6 +16,7 @@ import java.util.Set;
  * @Version 1.0
  **/
 @Slf4j
+@Component
 public class FullyMatchRoleVoter implements AccessDecisionVoter<Object> {
 
     @Override

@@ -7,8 +7,8 @@
         <artifactId>blog</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+    <packaging>jar</packaging>
     <artifactId>blog-cloud-security</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
 
     <properties>
         <java.version>1.8</java.version>
@@ -25,16 +25,11 @@
             <version>0.9.0</version>
         </dependency>
         <!-- jwt -->
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>3.2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.7.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.auth0</groupId>-->
+<!--            <artifactId>java-jwt</artifactId>-->
+<!--            <version>3.2.0</version>-->
+<!--        </dependency>-->
         <!-- spring security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
