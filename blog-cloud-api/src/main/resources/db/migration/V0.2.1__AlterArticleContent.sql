@@ -1,0 +1,1 @@
+alter table d_article_content add state char(1);

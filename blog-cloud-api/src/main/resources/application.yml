@@ -3,6 +3,9 @@ spring:
     name: blog-cloud-api
   cache:
     type: redis
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0.1.0
 #配置日志
 logging:
   level:

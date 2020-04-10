@@ -1,7 +1,5 @@
 /target/
-.mvn/wrapper/**
-!**/src/main/**
-!**/src/test/**
+/.mvn/wrapper/**
 .classpath
 .project
 .settings

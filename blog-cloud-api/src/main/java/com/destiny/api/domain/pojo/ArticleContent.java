@@ -25,14 +25,17 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ArticleContent extends BaseEntity<Integer> implements Serializable {
 
-    @NotNull(message = "文章id不能为空")
+    @NotNull(message = "Article id cannot be null.")
     @Column(name = "article_id")
     private Integer articleId;
 
     @Column(name = "content")
     private String content;
 
-    @NotNull(message = "排序编号不能为空")
+    @NotNull(message = "Article content cannot be null.")
     @Column(name = "order")
     private Integer order;
+
+    @Column(name = "state")
+    private Integer state;
 }
