@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: blog-cloud-search
+  profiles:
+    active: dev
+server:
+  port: 8084
+

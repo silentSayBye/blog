@@ -66,4 +66,14 @@ public class ArticleController {
         return Response.success("Article save successfully.");
     }
 
+    @GetMapping(value = "/article/all")
+    public Response findArticleList(){
+        List<ArticleVO> articleVOList;
+        try {
+            articleVOList = articleService.findAll();
+        } catch (Exception e) {
+            return Response.failed(e.getMessage());
+        }
+        return Response.success(articleVOList);
+    }
 }

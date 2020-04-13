@@ -8,10 +8,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ArticleRepository extends JpaRepository<Article,Integer>, ArticleRepositoryCustom {
 
     @Modifying
     @Query("update Article set status = 0 where id = :id")
     void deleteArticleById(@Param(value = "id")  Integer ArticleId);
+
+    @Query("select Article from Article")
+    List<Article> findAll();
 }

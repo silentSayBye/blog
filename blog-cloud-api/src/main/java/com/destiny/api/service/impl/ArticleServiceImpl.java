@@ -90,5 +90,13 @@ public class ArticleServiceImpl implements ArticleService {
         return articleVO;
     }
 
-
+    @Override
+    public List<ArticleVO> findAll() {
+        List<Article> articleList = articleRepository.findAll();
+        List<ArticleVO> articleVOList = Lists.newArrayList();
+        articleList.forEach(article -> {
+            articleVOList.add(fillArticleVo(article));
+        });
+        return articleVOList;
+    }
 }

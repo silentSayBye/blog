@@ -15,4 +15,5 @@ public interface ArticleService {
 
     List<ArticleVO> findArticleListByCondition(Integer status, Integer offset, Integer limit);
 
+    List<ArticleVO> findAll();
 }

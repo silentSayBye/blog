@@ -155,6 +155,7 @@
         <module>blog-cloud-eureka</module>
         <module>blog-cloud-api</module>
         <module>blog-cloud-config</module>
+        <module>blog-cloud-search</module>
     </modules>
     <repositories>
         <repository>
