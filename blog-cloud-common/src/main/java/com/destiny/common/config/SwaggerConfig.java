@@ -1,4 +1,4 @@
-package com.destiny.api.config;
+package com.destiny.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +37,7 @@ public class SwaggerConfig {
                 .title("Blog接口文档")
                 .description("Blog接口文档")
                 .version("1.0")
-                .contact(new Contact("destiny","www.destiny.blog.com","776805161@qq.com"))
+                .contact(new Contact("destiny","www.destiny.com","776805161@qq.com"))
                 .build();
     }
 }

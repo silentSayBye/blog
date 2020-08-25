@@ -7,7 +7,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -29,8 +31,6 @@ public class JwtUtil {
 
     private static final String CLAIM_KEY_USER = "username";
 
-    private Map<String,Object> tokenMap = new ConcurrentHashMap<>(20);
-
     @Value("${jwt.secure}")
     private String secure;
 
@@ -39,6 +39,9 @@ public class JwtUtil {
 
     @Value("${jwt.expire}")
     private Long refreshExpiration;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     private final  SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS512;
 
@@ -51,7 +54,6 @@ public class JwtUtil {
      **/
     public String generalAccessToken(UserDetails userDto){
         Map<String, Object> claims = setClaims(userDto);
-//        claims.put(CLAIM_KEY_AUTHORITIES,authoritiesToArray(userDto.getAuthorities()).get(0));
         return  generateToken(claims);
     }
 
@@ -65,21 +67,11 @@ public class JwtUtil {
     }
 
     /**
-     * @Description token是否可刷新
-     **/
-//    public Boolean canRefreshToken(String token){
-//        Date expiration = getExpirationFromToken(token);
-//        return expiration.before(new Date());
-//    }
-
-    /**
      * @Description 验证token
      **/
     public Boolean validToken(UserDetails userDto, String token){
         String username = getUsernameFromToken(token);
         return username.equals(userDto.getUsername());
-//        return (username.equals(userDto.getUsername())
-//                && isTokenExpiration(token));
     }
 
 
@@ -88,26 +80,6 @@ public class JwtUtil {
         return (String)claims.get(CLAIM_KEY_USER);
     }
 
-    public void deleteTokn(String username){
-        if (StringUtils.isNotBlank(username)){
-            tokenMap.remove(username);
-        }
-    }
-
-    public void putToken(String username,String token){
-        if (StringUtils.isNotBlank(username) && StringUtils.isNotBlank(token)){
-            tokenMap.put(username,token);
-        }
-    }
-
-    public Boolean containToken(String username,String token){
-        if (StringUtils.isNotBlank(username)){
-            if (tokenMap.containsKey(username) && tokenMap.get(username).equals(token)){
-                return true;
-            }
-        }
-        return false;
-    }
 
     private Claims parseToken(String token){
         Claims claims = null;
@@ -118,34 +90,10 @@ public class JwtUtil {
                     .getBody();
             log.info("token is {}",claims);
         }catch (Exception e){
-            log.info("claim parse failure");
+            log.error("claim parse failure");
         }
         return claims ;
     }
-
-//    private Date getExpirationFromToken(String token){
-//        Claims claims = parseToken(token);
-//        Date date = null;
-//        if (claims != null){
-//            date = claims.getExpiration();
-//        }
-//        return date;
-//    }
-
-//   private Date getCreatedDateFromToken(String token){
-//        Claims claims = parseToken(token);
-//        Date date = null;
-//        if (claims != null){
-//            date = claims.getIssuedAt();
-//        }
-//        return date;
-//    }
-
-//    private Boolean isTokenExpiration(String token){
-//        Date expiration = getExpirationFromToken(token);
-//        return expiration.before(new Date());
-//    }
-
 
     private Map<String,Object> setClaims(UserDetails userDto){
         Map claims = Maps.newHashMap();
@@ -164,17 +112,4 @@ public class JwtUtil {
     private Date generateExpirationDate(){
         return new Date(System.currentTimeMillis()+ expiration * 1000);
     }
-
-//    private List authoritiesToArray(Collection<? extends GrantedAuthority> authorities){
-//        return authorities.stream().map(authority -> authority.getAuthority())
-//                .collect(Collectors.toList());
-//    }
-
-//    public static void main(String[] args) {
-//       Date now = new Date();
-//
-//        long after = now.getTime() + 1000;
-//        System.out.println(now.before(new Date(after)));
-//
-//    }
 }
