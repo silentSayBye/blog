@@ -1,12 +1,9 @@
 package com.destiny.api.config.http;
 
-import com.destiny.api.config.annotation.ResponseResult;
-import com.destiny.api.config.interceptor.ResponseInterceptor;
 import com.destiny.api.domain.base.Result;
 import com.destiny.api.domain.vo.DefaultErrorResult;
 import com.destiny.api.domain.vo.Response;
 import com.destiny.api.util.JsonUtil;
-import com.destiny.api.util.RequestContextUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -14,14 +11,12 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import javax.servlet.http.HttpServletRequest;
-
 @ControllerAdvice
 public class ResponseHandler implements ResponseBodyAdvice {
 
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
-        return true;
+        return false;
     }
 
     @Override

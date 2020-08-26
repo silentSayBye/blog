@@ -7,6 +7,7 @@ import com.destiny.api.util.RequestContextUtil;
 import com.google.common.collect.Lists;
 import com.sun.deploy.net.HttpResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.StopWatch;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -45,16 +46,17 @@ public class RestControllerAspect {
         String uri = request.getRequestURI();
         String methodName = getMethodName(joinPoint);
         String params = getParams(joinPoint);
-        Long startTime = System.currentTimeMillis();
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
         log.info("start requst ============ methodName ={},uri ={},params ={}",methodName,uri,params);
         Object proceed = joinPoint.proceed();
-        Long lastTime = System.currentTimeMillis();
-        log.info("end response ============ {},costTime = {}ms",proceed ,lastTime - startTime);
+        stopWatch.stop();
+        log.info("end response ============ {},costTime = {}ms",proceed ,stopWatch.getTime());
         return proceed;
     }
 
     private Boolean needLog(Method method){
-        return method.getAnnotation(GetMapping.class) == null && !method.getDeclaringClass().equals(GlobalExceptionHandler.class);
+        return true;
     }
 
     private String getMethodName(ProceedingJoinPoint joinPoint){

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface   RoleRepository extends JpaRepository<Role,Integer>, RoleCustom {
+public interface RoleRepository extends JpaRepository<Role,Integer>, RoleCustom {
 
     List<Role> findAllByState(@Param("state") Integer flag);
 
