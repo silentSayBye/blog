@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableDiscoveryClient
 @SpringBootApplication
 @EnableTransactionManagement
-@ComponentScan({"com.blog.security","com.destiny.api"})
+@ComponentScan({"com.destiny.security", "com.destiny.api"})
 //@EnableJpaAuditing
 public class ApiApplication {
 

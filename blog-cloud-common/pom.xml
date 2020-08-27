@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.destiny</groupId>
-	<artifactId>common</artifactId>
+	<artifactId>blog-cloud-common</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>common</name>
 	<description>Demo project for Spring Boot</description>
@@ -48,6 +48,16 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.10.1</version>
 		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

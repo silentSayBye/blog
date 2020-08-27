@@ -34,7 +34,7 @@ public class DictCacheService {
     public List<Dict> findDictListByCategory(String categoryCode){
         Preconditions.checkNotNull(categoryCode, "categoryCode can not be null");
         log.info("search dictList by db,categoryCode is {}", categoryCode);
-        return dictService.getDictListByCatgoryCode(categoryCode);
+        return dictService.getDictListByCategoryCode(categoryCode);
     }
 
     @CacheEvict(value = CacheConstant.DICT_KEY, key = "#categoryCode + ':' + #code")

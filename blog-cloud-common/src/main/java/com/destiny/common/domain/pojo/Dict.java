@@ -1,31 +1,45 @@
 package com.destiny.common.domain.pojo;
 
 import lombok.Data;
+import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+@ToString
 @Entity
-@Table(name = "dict")
+@Table(name = "d_dict")
 public class Dict extends BaseEntity<Long> implements Serializable {
 
+    @Column(name = "category_code")
     private String categoryCode;
 
+    @Column(name = "code")
     private String code;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "extend_property1")
     private String extendProperty1;
 
+    @Column(name = "extend_property2")
     private String extendProperty2;
 
+    @Column(name = "extend_property3")
     private String extendProperty3;
 
+    @Column(name = "extend_property4")
     private String extendProperty4;
 
+    @Column(name = "extend_property5")
     private String extendProperty5;
+
+    @Column(name = "status")
+    private int status;
 
     public String getCategoryCode() {
         return categoryCode;
@@ -104,5 +118,13 @@ public class Dict extends BaseEntity<Long> implements Serializable {
 
     public void setExtendProperty5(String extendProperty5) {
         this.extendProperty5 = extendProperty5;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

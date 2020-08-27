@@ -8,5 +8,9 @@ public interface DictService {
 
     Dict getDictByCategoryCodeAndCode(String categoryCode, String code);
 
-    List<Dict> getDictListByCatgoryCode(String categoryCode);
+    List<Dict> getDictListByCategoryCode(String categoryCode);
+
+    void insertDict(Dict dict);
+
+    void updateDict(Long id);
 }

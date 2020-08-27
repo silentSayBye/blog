@@ -27,10 +27,10 @@ import java.time.Duration;
 @Slf4j
 public class RedisConfig{
 
-    @Bean
-    public RedisConnectionFactory redisConnectionFactory(){
-        return new JedisConnectionFactory();
-    }
+//    @Bean
+//    public RedisConnectionFactory redisConnectionFactory(){
+//        return new JedisConnectionFactory();
+//    }
 
     @Bean
     public RedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory){
@@ -75,8 +75,8 @@ public class RedisConfig{
 
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig().serializeKeysWith(stringSerializationPair)
                 .serializeValuesWith(jsonSerializationPair)
-                .disableCachingNullValues()
-                .entryTtl(Duration.ofSeconds(100));
+                .disableCachingNullValues();
+//                .entryTtl(Duration.ofSeconds(100));
 
         RedisCacheManager redisCacheManager = new RedisCacheManager(redisCacheWriter,redisCacheConfiguration);
 

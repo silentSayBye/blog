@@ -1,1 +1,31 @@
+spring:
+  application:
+    name: blog-cloud-common
+  cache:
+    type: redis
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    database: 0
+    password: lts950410
+    host: 127.0.0.1
+    port: 6379
+    timeout: 5000ms
+    Lettuce:
+      pool:
+        max-active: 8
+        max-idle: 4
+        min-idle: 1
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true # 懒加载解决问题
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    database: mysql
 
