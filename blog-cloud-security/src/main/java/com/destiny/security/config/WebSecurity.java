@@ -1,17 +1,17 @@
 package com.destiny.security.config;
 
 
-import com.blog.security.entity.Authority;
-import com.blog.security.entity.Response;
-import com.blog.security.entity.User;
-import com.blog.security.entity.UserDto;
-import com.blog.security.exception.FailFetchInfoByFeignException;
-import com.blog.security.filter.JwtAuthenticationTokenFilter;
-import com.blog.security.filter.RestAuthenticationEntryPoint;
-import com.blog.security.filter.RestfulAccessDeniedHandler;
-import com.blog.security.metadata.CustomSecurityMetadata;
-import com.blog.security.service.UserRemoteService;
-import com.blog.security.voter.FullyMatchRoleVoter;
+import com.destiny.security.entity.Authority;
+import com.destiny.security.entity.Response;
+import com.destiny.security.entity.User;
+import com.destiny.security.entity.UserDto;
+import com.destiny.security.exception.FailFetchInfoByFeignException;
+import com.destiny.security.filter.JwtAuthenticationTokenFilter;
+import com.destiny.security.filter.RestAuthenticationEntryPoint;
+import com.destiny.security.filter.RestfulAccessDeniedHandler;
+import com.destiny.security.metadata.CustomSecurityMetadata;
+import com.destiny.security.service.UserRemoteService;
+import com.destiny.security.voter.FullyMatchRoleVoter;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,6 @@
 package com.destiny.security.authority.setting;
 
-import com.blog.security.authority.enums.Operation;
+import com.destiny.security.authority.enums.Operation;
 import com.google.common.collect.Lists;
 import lombok.Data;
 

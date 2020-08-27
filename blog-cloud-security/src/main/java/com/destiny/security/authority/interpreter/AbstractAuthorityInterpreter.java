@@ -1,15 +1,15 @@
 package com.destiny.security.authority.interpreter;
 
-import com.blog.security.authority.exception.InvalidAuthorityCodeException;
-import com.blog.security.authority.exception.NotSupportedConstraintSetting;
-import com.blog.security.authority.explanation.Explanation;
-import com.blog.security.authority.explanation.OrExplanation;
-import com.blog.security.authority.handler.*;
-import com.blog.security.authority.qualifier.AuthorityQualifier;
-import com.blog.security.authority.setting.AuthoritySetting;
-import com.blog.security.authority.setting.ConstraintSetting;
-import com.blog.security.authority.setting.HibernateAuthoritySetting;
-import com.blog.security.authority.setting.MybatisAuthoritySetting;
+import com.destiny.security.authority.exception.InvalidAuthorityCodeException;
+import com.destiny.security.authority.exception.NotSupportedConstraintSetting;
+import com.destiny.security.authority.explanation.Explanation;
+import com.destiny.security.authority.explanation.OrExplanation;
+import com.destiny.security.authority.handler.*;
+import com.destiny.security.authority.qualifier.AuthorityQualifier;
+import com.destiny.security.authority.setting.AuthoritySetting;
+import com.destiny.security.authority.setting.ConstraintSetting;
+import com.destiny.security.authority.setting.HibernateAuthoritySetting;
+import com.destiny.security.authority.setting.MybatisAuthoritySetting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import lombok.Data;

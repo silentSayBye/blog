@@ -1,10 +1,10 @@
 package com.destiny.security.authority.interpreter;
 
 
-import com.blog.security.authority.explanation.Explanation;
-import com.blog.security.authority.setting.AuthoritySetting;
-import com.blog.security.authority.setting.FieldConstraintSetting;
-import com.blog.security.authority.setting.HibernateAuthoritySetting;
+import com.destiny.security.authority.explanation.Explanation;
+import com.destiny.security.authority.setting.AuthoritySetting;
+import com.destiny.security.authority.setting.FieldConstraintSetting;
+import com.destiny.security.authority.setting.HibernateAuthoritySetting;
 import com.google.common.collect.Maps;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 

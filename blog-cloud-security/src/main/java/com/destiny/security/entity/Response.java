@@ -1,7 +1,7 @@
 package com.destiny.security.entity;
 
-import com.blog.security.enums.ResponseCode;
-import com.blog.security.enums.ResponseStatus;
+import com.destiny.security.enums.ResponseCode;
+import com.destiny.security.enums.ResponseStatus;
 import lombok.Data;
 
 import java.io.Serializable;

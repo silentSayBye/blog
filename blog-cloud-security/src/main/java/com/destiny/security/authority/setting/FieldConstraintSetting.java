@@ -1,6 +1,6 @@
 package com.destiny.security.authority.setting;
 
-import com.blog.security.authority.enums.Operation;
+import com.destiny.security.authority.enums.Operation;
 import lombok.Data;
 
 import java.util.ArrayList;

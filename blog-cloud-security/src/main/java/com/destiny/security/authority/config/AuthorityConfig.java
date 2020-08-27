@@ -1,12 +1,12 @@
 package com.destiny.security.authority.config;
 
-import com.blog.security.authority.interpreter.AuthorityInterpreter;
-import com.blog.security.authority.interpreter.HibernateAuthorityInterpreter;
-import com.blog.security.authority.interpreter.JDBCAuthorityInterpreter;
-import com.blog.security.authority.setting.AuthoritySetting;
-import com.blog.security.authority.setting.AuthoritySettings;
-import com.blog.security.authority.setting.HibernateAuthoritySetting;
-import com.blog.security.authority.setting.MybatisAuthoritySetting;
+import com.destiny.security.authority.interpreter.AuthorityInterpreter;
+import com.destiny.security.authority.interpreter.HibernateAuthorityInterpreter;
+import com.destiny.security.authority.interpreter.JDBCAuthorityInterpreter;
+import com.destiny.security.authority.setting.AuthoritySetting;
+import com.destiny.security.authority.setting.AuthoritySettings;
+import com.destiny.security.authority.setting.HibernateAuthoritySetting;
+import com.destiny.security.authority.setting.MybatisAuthoritySetting;
 import com.destiny.security.authority.interpreter.AuthorityInterpreter;
 import com.destiny.security.authority.interpreter.HibernateAuthorityInterpreter;
 import com.destiny.security.authority.interpreter.JDBCAuthorityInterpreter;

@@ -1,6 +1,6 @@
 package com.destiny.security.authority.explanation;
 
-import com.blog.security.authority.enums.Operation;
+import com.destiny.security.authority.enums.Operation;
 import lombok.Builder;
 import lombok.Data;
 

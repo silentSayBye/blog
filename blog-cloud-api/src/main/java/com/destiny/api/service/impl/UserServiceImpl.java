@@ -1,6 +1,6 @@
 package com.destiny.api.service.impl;
 
-import com.blog.security.utils.JwtUtil;
+import com.destiny.security.utils.JwtUtil;
 import com.destiny.api.dao.RoleRepository;
 import com.destiny.api.dao.UserRepository;
 import com.destiny.api.domain.dto.UserDto;

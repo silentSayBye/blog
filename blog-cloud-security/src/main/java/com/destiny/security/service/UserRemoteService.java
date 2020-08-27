@@ -1,6 +1,5 @@
 package com.destiny.security.service;
 
-import com.blog.security.entity.Response;
 import com.destiny.security.entity.Response;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;

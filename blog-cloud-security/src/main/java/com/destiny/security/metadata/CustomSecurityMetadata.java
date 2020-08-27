@@ -1,10 +1,10 @@
 package com.destiny.security.metadata;
 
-import com.blog.security.entity.Authority;
-import com.blog.security.entity.Resource;
-import com.blog.security.entity.Response;
-import com.blog.security.exception.FailFetchInfoByFeignException;
-import com.blog.security.service.ResourceRemoteService;
+import com.destiny.security.entity.Authority;
+import com.destiny.security.entity.Resource;
+import com.destiny.security.entity.Response;
+import com.destiny.security.exception.FailFetchInfoByFeignException;
+import com.destiny.security.service.ResourceRemoteService;
 import com.destiny.security.entity.Authority;
 import com.destiny.security.entity.Resource;
 import com.destiny.security.entity.Response;

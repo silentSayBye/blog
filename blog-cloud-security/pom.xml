@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.destiny</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>blog-cloud-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

@@ -1,10 +1,9 @@
 package com.destiny.security.authority.interpreter;
 
-import com.blog.security.authority.explanation.Explanation;
-import com.blog.security.authority.setting.AuthoritySetting;
-import com.blog.security.authority.setting.ColumnConstraintSetting;
-import com.blog.security.authority.setting.MybatisAuthoritySetting;
 import com.destiny.security.authority.explanation.Explanation;
+import com.destiny.security.authority.setting.AuthoritySetting;
+import com.destiny.security.authority.setting.ColumnConstraintSetting;
+import com.destiny.security.authority.setting.MybatisAuthoritySetting;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 

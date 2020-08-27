@@ -1,8 +1,8 @@
 package com.destiny.security.entity;
 
 
-import com.blog.security.enums.HttpMethodEnum;
-import com.blog.security.enums.ResourceType;
+import com.destiny.security.enums.HttpMethodEnum;
+import com.destiny.security.enums.ResourceType;
 import com.google.common.collect.Lists;
 import lombok.Data;
 
