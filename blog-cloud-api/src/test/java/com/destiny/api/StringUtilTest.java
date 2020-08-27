@@ -32,8 +32,11 @@ public class StringUtilTest {
 
 
     public static void main(String[] args) {
-        StringUtilTest.splitContent();
-        StringUtilTest.mergeToString();
+//        StringUtilTest.splitContent();
+//        StringUtilTest.mergeToString();
+
+//        int(Math.random()*9+1)*Math.pow()
+        System.out.println((int)((Math.random()*9+1)*Math.pow(10,5)));
 
     }
 }

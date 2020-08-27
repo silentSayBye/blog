@@ -17,6 +17,6 @@ public interface ArticleRepository extends JpaRepository<Article,Integer>, Artic
     @Query("update Article set status = 0 where id = :id")
     void deleteArticleById(@Param(value = "id")  Integer ArticleId);
 
-    @Query("select Article from Article")
+    @Query("select t from Article t")
     List<Article> findAll();
 }

@@ -15,3 +15,4 @@ eureka:
     enable-self-preservation: false
     # server清理无效节点的时间间隔
     eviction-interval-timer-in-ms: 1000
+
