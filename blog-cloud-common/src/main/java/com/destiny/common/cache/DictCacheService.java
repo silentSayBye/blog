@@ -5,12 +5,9 @@ import com.destiny.common.domain.pojo.Dict;
 import com.destiny.common.service.DictService;
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.interceptor.KeyGenerator;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

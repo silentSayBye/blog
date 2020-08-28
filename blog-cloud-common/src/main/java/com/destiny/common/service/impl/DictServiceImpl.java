@@ -2,7 +2,7 @@ package com.destiny.common.service.impl;
 
 import com.destiny.common.dao.DictRepository;
 import com.destiny.common.domain.pojo.Dict;
-import com.destiny.common.exception.DataNoFoundException;
+import com.destiny.common.exception.DataNotFoundException;
 import com.destiny.common.service.DictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +41,7 @@ public class DictServiceImpl implements DictService {
             dict.setStatus(0);
             dictRepository.save(dict);
         } else {
-            throw new DataNoFoundException("", String.format("根据id:&s未查询到数据", id));
+            throw new DataNotFoundException("", String.format("根据id:&s未查询到数据", id));
         }
 
     }

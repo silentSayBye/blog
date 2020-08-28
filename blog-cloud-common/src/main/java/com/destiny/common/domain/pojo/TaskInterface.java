@@ -1,6 +1,7 @@
 package com.destiny.common.domain.pojo;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "task_interface")
 @Data
+@NoArgsConstructor
 public class TaskInterface extends BaseEntity<Long> implements Serializable{
 
     @NonNull
