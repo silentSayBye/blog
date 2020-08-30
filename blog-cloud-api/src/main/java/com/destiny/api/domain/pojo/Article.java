@@ -1,12 +1,14 @@
 package com.destiny.api.domain.pojo;
 
 import com.destiny.api.domain.base.BaseEntity;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+@Data
 @Entity
 @Table(name = "d_article")
 public class Article extends BaseEntity<Integer> implements Serializable {

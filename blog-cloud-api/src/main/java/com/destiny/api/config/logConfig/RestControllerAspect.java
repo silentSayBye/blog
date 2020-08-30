@@ -2,7 +2,6 @@ package com.destiny.api.config.logConfig;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.destiny.api.exception.GlobalExceptionHandler;
 import com.destiny.api.util.RequestContextUtil;
 import com.google.common.collect.Lists;
 import com.sun.deploy.net.HttpResponse;
@@ -14,7 +13,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -95,6 +94,9 @@ public class RestControllerAspect {
             return jsonObject.toJSONString();
         }
         String params = JSON.toJSONString(obj);
+        if (ClassUtils.isPrimitiveOrWrapper(obj.getClass())){
+            return params;
+        }
         JSONObject object = JSONObject.parseObject(params);
         List<String> sensitiveFieldList = getSensitiveFieldList();
         for (String sensitiveField : sensitiveFieldList) {

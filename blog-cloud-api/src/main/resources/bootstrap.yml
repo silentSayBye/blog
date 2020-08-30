@@ -3,8 +3,6 @@ server:
 spring:
   profiles:
     active: dev
-#  application:
-#    name: api-server
   cloud:
     config:
       name: config-dev
