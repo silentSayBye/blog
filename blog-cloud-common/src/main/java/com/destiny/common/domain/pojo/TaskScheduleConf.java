@@ -5,11 +5,12 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "d_task_schedule_conf")
-public class TaskScheduleConf {
+public class TaskScheduleConf extends BaseEntity<Long> implements Serializable {
 
     @Column(name = "task_code")
     private String taskCode;

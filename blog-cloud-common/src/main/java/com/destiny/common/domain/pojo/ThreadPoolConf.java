@@ -5,11 +5,12 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "d_thread_pool_conf")
-public class ThreadPoolConf {
+public class ThreadPoolConf extends BaseEntity<Long> implements Serializable {
 
     @Column(name = "task_code")
     private String taskCode;
