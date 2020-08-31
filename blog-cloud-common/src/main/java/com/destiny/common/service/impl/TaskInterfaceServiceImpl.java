@@ -4,6 +4,7 @@ import com.destiny.common.dao.TaskInterfaceRepository;
 import com.destiny.common.domain.pojo.TaskInterface;
 import com.destiny.common.service.TaskInterfaceService;
 import com.google.common.base.Preconditions;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +49,19 @@ public class TaskInterfaceServiceImpl implements TaskInterfaceService {
     @Override
     public void updateTaskInterface(TaskInterface taskInterface) {
         taskInterfaceRepository.save(taskInterface);
+    }
+
+    @Override
+    public List<TaskInterface> findAllByTaskCode(Integer limitNum, String taskCode) {
+        Preconditions.checkNotNull(limitNum, "limitNum is null");
+        Preconditions.checkNotNull(taskCode, "taskCode is null");
+        return taskInterfaceRepository.findBySubTaskType(limitNum, taskCode);
+    }
+
+    @Override
+    public void saveAllTaskInterface(List<TaskInterface> taskInterfaceList) {
+        if (CollectionUtils.isNotEmpty(taskInterfaceList)) {
+            taskInterfaceRepository.saveAll(taskInterfaceList);
+        }
     }
 }

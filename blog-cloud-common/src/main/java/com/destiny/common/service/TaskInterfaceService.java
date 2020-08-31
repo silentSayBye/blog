@@ -15,4 +15,8 @@ public interface TaskInterfaceService {
     void deleteTaskInterface(Long id);
 
     void updateTaskInterface(TaskInterface taskInterface);
+
+    List<TaskInterface> findAllByTaskCode(Integer limitNum, String taskCode);
+
+    void saveAllTaskInterface(List<TaskInterface> taskInterfaceList);
 }

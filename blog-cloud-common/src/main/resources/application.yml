@@ -28,4 +28,3 @@ spring:
         enable_lazy_load_no_trans: true # 懒加载解决问题
         dialect: org.hibernate.dialect.MySQL5Dialect
     database: mysql
-

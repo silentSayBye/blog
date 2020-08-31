@@ -3,6 +3,7 @@ package com.destiny.common;
 import com.destiny.common.cache.DictCacheService;
 import com.destiny.common.dao.DictRepository;
 import com.destiny.common.domain.pojo.Dict;
+import com.destiny.common.domain.pojo.TaskInterface;
 import com.destiny.common.service.DictService;
 import com.google.common.collect.Lists;
 import org.junit.Assert;
@@ -11,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -76,4 +78,10 @@ public class CommonApplicationTests {
         Dict dictList = dictCacheService.findDictByCategoryCodeAndCode("categoryCode", "code");
     }
 
+
+    @Test
+    public void TaskTest() {
+
+
+    }
 }

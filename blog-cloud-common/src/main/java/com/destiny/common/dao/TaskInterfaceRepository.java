@@ -1,5 +1,6 @@
 package com.destiny.common.dao;
 
+import com.destiny.common.dao.custom.TaskInterfaceRepositoryCustom;
 import com.destiny.common.domain.pojo.TaskInterface;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TaskInterfaceRepository extends JpaRepository<TaskInterface, Long> {
+public interface TaskInterfaceRepository extends JpaRepository<TaskInterface, Long>, TaskInterfaceRepositoryCustom {
 
     @Query("select t from TaskInterface t where t.taskId = :taskId")
     TaskInterface findByTaskId(@Param("taskId") Integer taskId);
@@ -20,4 +21,5 @@ public interface TaskInterfaceRepository extends JpaRepository<TaskInterface, Lo
 
     @Query("select t from TaskInterface t where t.status = :status")
     List<TaskInterface> findAllByStatus(@Param("status") Integer status);
+
 }
