@@ -28,3 +28,7 @@ spring:
         enable_lazy_load_no_trans: true
         dialect: org.hibernate.dialect.MySQL5Dialect
     database: mysql
+#  打印sql参数
+#logging:
+#    level:
+#      org.hibernate.type.descriptor.sql.BasicBinder: trace

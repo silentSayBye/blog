@@ -44,7 +44,7 @@ public class TaskScheduleConfig {
             Boolean ifLock = taskScheduleConf.getIfLock();
             String taskName = taskScheduleConf.getTaskName();
             if (StringUtils.isNotBlank(beanName)) {
-                ScheduleService.startTask(taskCode, taskName, beanName, ifLock, lockTime, corn);
+                ScheduleService.startTask(cxt, taskCode, taskName, beanName, ifLock, lockTime, corn);
             }
         });
     }

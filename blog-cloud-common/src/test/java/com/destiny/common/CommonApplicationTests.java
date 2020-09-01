@@ -5,12 +5,14 @@ import com.destiny.common.dao.DictRepository;
 import com.destiny.common.domain.pojo.Dict;
 import com.destiny.common.domain.pojo.TaskInterface;
 import com.destiny.common.service.DictService;
+import com.destiny.common.taskschedule.TaskScheduleConfig;
 import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -29,6 +31,9 @@ public class CommonApplicationTests {
 
     @Autowired
     private DictRepository dictRepository;
+
+    @Autowired
+    private ApplicationContext cxt;
 
 
     @Test
@@ -81,7 +86,8 @@ public class CommonApplicationTests {
 
     @Test
     public void TaskTest() {
-
+        System.out.println(cxt);
+        TaskScheduleConfig.init(cxt, "blog-cloud-common");
 
     }
 }

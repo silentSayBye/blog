@@ -13,23 +13,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
 
 @Slf4j
-public class ScheduleService implements ApplicationContextAware {
+public class ScheduleService {
 
     private static Map<String, ThreadPoolTaskScheduler> schedulerMap = new ConcurrentHashMap<>();
     private static Map<String, ScheduledFuture> futureMap = new ConcurrentHashMap<>();
 
-    private static ApplicationContext applicationContext;
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
-
-    public static Integer startTask(String taskCode, String taskName, String beanName, Boolean ifLock, Integer lockTime, String corn) {
+    public static Integer startTask(ApplicationContext cxt, String taskCode, String taskName, String beanName, Boolean ifLock, Integer lockTime, String corn) {
         if (!isDone(taskCode)) {
             return 3;
         }
-        AbstractTask task = (AbstractTask) applicationContext.getBean(beanName);
+        AbstractTask task = (AbstractTask) cxt.getBean(beanName);
         task.setKey(taskCode);
         if (ifLock != null) {
             task.setDistributedLock(ifLock);

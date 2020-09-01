@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "task_interface")
+@Table(name = "d_task_interface")
 @Data
 @NoArgsConstructor
 public class TaskInterface extends BaseEntity<Long> implements Serializable{
